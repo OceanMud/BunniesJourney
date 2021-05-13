@@ -22,9 +22,14 @@ const VictoryScreen = () => {
 
   return (
     <div className="relative">
-      <img src="images/background.jpg" className="h-72" />
-      <img src="images/win.png" className="absolute top-10 left-8 h-20" />
+      <img alt="background" src="images/background.jpg" className="h-72" />
       <img
+        alt="win"
+        src="images/win.png"
+        className="absolute top-10 left-8 h-20"
+      />
+      <img
+        alt="replay"
         src="images/replay.svg"
         className="absolute top-32 left-24 h-20 cursor-pointer"
         onClick={() => setLevel(0)}

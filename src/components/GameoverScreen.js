@@ -15,10 +15,15 @@ const GameoverScreen = () => {
 
   return (
     <div className="relative">
-      <img src="images/background.jpg" className="h-72" />
-      <img src="images/gameover.png" className="absolute top-10 left-3 h-20" />
+      <img alt="background" src="images/background.jpg" className="h-72" />
+      <img
+        alt=" gameover"
+        src="images/gameover.png"
+        className="absolute top-10 left-3 h-20"
+      />
 
       <img
+        alt="replay"
         src="images/replay.svg"
         className="absolute top-32 left-24 h-20 cursor-pointer"
         onClick={() => setLevel(0)}

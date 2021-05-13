@@ -39,10 +39,7 @@ const CreateBoard = () => {
   }
 
   useEffect(() => {
-    console.log("Level:", level);
     monsterShuffle();
-
-    console.log("mounted");
 
     let shuffled = [
       "Monster",
@@ -62,11 +59,9 @@ const CreateBoard = () => {
 
     subRef.current = shuffled;
     setNewBoard(subRef.current);
-    console.log(subRef.current);
+
     setMakeBoard(1);
-    return () => {
-      console.log("unmounted");
-    };
+    return () => {};
   }, [level]);
 
   return (

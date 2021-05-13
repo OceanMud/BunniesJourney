@@ -25,9 +25,14 @@ const StartScreen = () => {
 
   return (
     <div className="relative">
-      <img src="images/background.jpg" className="h-72" />
-      <img src="images/TitlePick.png" className="absolute top-10 left-1 h-14" />
+      <img alt="background" src="images/background.jpg" className="h-72" />
       <img
+        alt="title"
+        src="images/TitlePick.png"
+        className="absolute top-10 left-1 h-14"
+      />
+      <img
+        alt="main"
         src="images/icons/main/1.png"
         className="absolute top-44 left-4 h-16 cursor-pointer"
         onClick={() => {
@@ -36,6 +41,7 @@ const StartScreen = () => {
         }}
       />
       <img
+        alt="person2"
         src="images/icons/main/2.png"
         className="absolute top-44 left-28 h-16 cursor-pointer"
         onClick={() => {
@@ -44,6 +50,7 @@ const StartScreen = () => {
         }}
       />
       <img
+        alt="person3"
         src="images/icons/main/3.png"
         className="absolute top-44 left-52 h-16 cursor-pointer"
         onClick={() => {

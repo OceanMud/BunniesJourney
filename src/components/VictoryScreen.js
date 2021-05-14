@@ -35,8 +35,6 @@ const VictoryScreen = () => {
       }
     }
 
-    // console.log("score", JSON.parse(localStorage.getItem("score")));
-
     setPlayer({
       hp: 10,
       poisoned: false,
@@ -44,9 +42,7 @@ const VictoryScreen = () => {
       color: "text-black",
     });
 
-    return () => {
-      setScore(0);
-    };
+    return () => {};
   }, []);
 
   return (

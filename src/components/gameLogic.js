@@ -139,8 +139,8 @@ const gameLogic = (tile, index, boardRef, player, level, score) => {
     move.splice(newMove, 1, "");
     move.splice(index, 1, "Hero");
     boardRef = move;
-    console.log("move", boardRef);
-    console.log("test", boardRef[index]);
+    // console.log("move", boardRef);
+    // console.log("test", boardRef[index]);
 
     return [...update, boardRef];
   }

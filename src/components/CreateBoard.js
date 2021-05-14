@@ -29,7 +29,6 @@ const CreateBoard = () => {
 
   useEffect(() => {
     monsterShuffle();
-    console.log("level", level);
 
     let shuffledTemplate = "";
 

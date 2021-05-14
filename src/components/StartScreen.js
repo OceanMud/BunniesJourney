@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import UserContext from "./UserContext";
 
 const StartScreen = () => {
@@ -8,8 +8,12 @@ const StartScreen = () => {
   const { setPlayer } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { setDifficulty } = useContext(UserContext);
+  const { score, setScore } = useContext(UserContext);
 
   const localScore = JSON.parse(localStorage.getItem("score"));
+
+  const subRef = useRef(0);
+  subRef.current = score;
 
   useEffect(() => {
     setActionText(
@@ -23,6 +27,10 @@ const StartScreen = () => {
     });
 
     setMakeBoard(0);
+
+    subRef.current = 0;
+    setScore(subRef.current);
+
     return () => {};
   }, []);
 

@@ -10,23 +10,18 @@ import "../styles/App.css";
 
 function App() {
   const { level, setLevel } = useContext(UserContext);
-  // const { background, setBackground } = useContext(UserContext);
   const { setNewBoard } = useContext(UserContext);
   const { makeBoard, setMakeBoard } = useContext(UserContext);
   const { actionText } = useContext(UserContext);
-  // const { resetBoard, setResetBoard } = useContext(UserContext);
   const subRef = useRef(1);
   subRef.current = level;
 
   return (
-    <div classname="">
+    <div>
       <button
+        className="  text-gray-700"
+        Alt="Secret Button to skip level (in the top left)"
         onClick={() => {
-          // let oldBoard = newBoard;
-          // oldBoard.splice(2, 1);
-          // oldBoard.splice(6, 1);
-          // console.log(oldBoard);
-          // setNewBoard(oldBoard);
           subRef.current++;
           setLevel(subRef.current);
           setMakeBoard(0);
@@ -41,7 +36,7 @@ function App() {
           ]);
         }}
       >
-        hello
+        Skip Level
       </button>
       <div className=" mt-24 flex justify-center  text-xl font-bold ">
         <div className="flex flex-col w-72 border-4 border-black">
@@ -73,41 +68,3 @@ function App() {
 }
 
 export default App;
-
-// <div className="grid grid-cols-3 grid-rows-3 ">
-// <div id="1" className="relative ">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="2" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="3" className="relative">
-//   <img
-//     src="/images/icons/arrow.png"
-//     className="w-14 absolute z-10 left-6 top-6"
-//   />
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="4" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="5" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="6" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="7" className="relative">
-//   <img src={background} className="w-24 " />
-// <img
-//   src="/images/icons/main/1.png"
-//   className="w-14 absolute z-10 left-6 top-6"
-// />
-// </div>
-// <div id="8" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// <div id="9" className="relative">
-//   <img src={background} className="w-24 " />
-// </div>
-// </div>

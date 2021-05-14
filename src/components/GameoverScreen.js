@@ -3,7 +3,6 @@ import UserContext from "./UserContext";
 
 const GameoverScreen = () => {
   const { setActionText } = useContext(UserContext);
-  const { setHero } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
 
   useEffect(() => {

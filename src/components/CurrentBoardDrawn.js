@@ -1,20 +1,40 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import UserContext from "./UserContext";
+import { monstersField, monstersCave, monstersHell } from "./monsters";
 
-const CurrentBoardDrawn = ({ tile, index, monsterImg }) => {
+import currentBoardDrawnImages from "./currentBoardDrawnImages";
+
+const CurrentBoardDrawn = ({ tile, index }) => {
   const { background } = useContext(UserContext);
   const { hero } = useContext(UserContext);
   const { player } = useContext(UserContext);
   const { level } = useContext(UserContext);
+
+  let enemy = monstersField;
+
+  if (level >= 1 && level < 3) {
+    enemy = monstersField;
+  } else if (level >= 3 && level < 7) {
+    enemy = monstersCave;
+  } else if (level >= 7 && level < 10) {
+    enemy = monstersHell;
+  }
+
+  useEffect(() => {
+    return () => {};
+  });
+
+  const image = currentBoardDrawnImages.find((select) => select.tile === tile);
+
   return (
     <div className="relative border-l  border-b border-r-0 border-black ">
       <img alt="background" src={background} className="w-24 shadow-2xl " />
 
-      {tile === "Hero" && (
-        <div id={index}>
+      {image.tile === "Hero" && (
+        <div>
           <img
-            alt="Hero"
-            src={hero}
+            alt={currentBoardDrawnImages[0].alt}
+            src={eval(currentBoardDrawnImages[0].src)}
             className=" w-14 absolute z-30 shadow-2xl left-6 top-6"
           />
           <p
@@ -24,67 +44,22 @@ const CurrentBoardDrawn = ({ tile, index, monsterImg }) => {
           </p>
         </div>
       )}
-      {tile === "Arrow" && (
+
+      {tile === image.tile && (
         <div id={index}>
-          <img
-            alt="progress"
-            src={
-              level === 3
-                ? "/images/icons/cave.png"
-                : level === 9
-                ? "/images/icons/amulet.png"
-                : "/images/icons/arrow.png"
-            }
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
-        </div>
-      )}
-      {tile === "Monster" && (
-        <div id={index}>
-          <img
-            alt="Monster"
-            src={monsterImg[index].img}
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
-          <p className="w-14 absolute z-10 shadow-2xl left-11 top-0 ">
-            {monsterImg[index].attack}
-          </p>
-        </div>
-      )}
-      {tile === "Health" && (
-        <div id={index}>
-          <img
-            alt="HP Potion"
-            src="/images/icons/potions/Transperent/HealthPotion.png"
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
-        </div>
-      )}
-      {tile === "Antidote" && (
-        <div id={index}>
-          <img
-            alt="Anti-Poison Potion"
-            src="/images/icons/potions/Transperent/AntidotePotion.png"
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
-        </div>
-      )}
-      {tile === "Poison" && (
-        <div id={index}>
-          <img
-            alt="Poison Potion"
-            src="/images/icons/potions/Transperent/PoisonPotion.png"
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
-        </div>
-      )}
-      {tile === "Shield" && (
-        <div id={index}>
-          <img
-            alt="Shield Potion"
-            src="/images/icons/potions/Transperent/ProtectionPotion.png"
-            className="w-14 shadow-2xl absolute z-10 left-6 top-6"
-          />
+          {image.src.length > 0 && (
+            <img
+              alt={image.alt}
+              src={image.src.length > 20 ? image.src : eval(image.src)}
+              className=" w-14 absolute z-30 shadow-2xl left-6 top-6"
+            />
+          )}
+
+          {image.tile === "Monster" ? (
+            <p className="w-14 absolute z-10 shadow-2xl left-11 top-0 ">
+              {enemy[index].attack}
+            </p>
+          ) : undefined}
         </div>
       )}
     </div>

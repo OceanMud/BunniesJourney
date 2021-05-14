@@ -1,5 +1,4 @@
 const levelActionText = (level) => {
-  console.log(level);
   if (level === 1) {
     return "Every journey starts with the first step";
   } else if (level === 2) {

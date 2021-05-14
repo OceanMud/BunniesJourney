@@ -1,11 +1,18 @@
 import determineMove from "./determineMove";
-import { monstersField } from "./monsters";
+import { monstersField, monstersCave, monstersHell } from "./monsters";
 
-const checkStatus = (tile, player, index) => {
-  console.log("hp", player.hp);
-  let monsterImg = monstersField;
+const checkStatus = (tile, player, index, level) => {
+  let monsterImg = "";
   let updatePlayer = player;
   let text = "";
+
+  if (level >= 1 && level < 3) {
+    monsterImg = monstersField;
+  } else if (level >= 3 && level < 7) {
+    monsterImg = monstersCave;
+  } else if (level >= 7 && level < 10) {
+    monsterImg = monstersHell;
+  }
 
   if (tile === "Monster") {
     text = `You attack a ${monsterImg[index].name} `;
@@ -115,7 +122,7 @@ const checkStatus = (tile, player, index) => {
   return [updatePlayer, text];
 };
 
-const gameLogic = (tile, index, boardRef, player) => {
+const gameLogic = (tile, index, boardRef, player, level) => {
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
 
@@ -124,9 +131,7 @@ const gameLogic = (tile, index, boardRef, player) => {
   }
 
   if (validMove) {
-    const update = checkStatus(tile, player, index);
-
-    console.log("UPDATE:", update);
+    const update = checkStatus(tile, player, index, level);
 
     let move = boardRef;
     move.splice(newMove, 1, "");

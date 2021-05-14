@@ -1,11 +1,6 @@
 import React, { useEffect, useContext, useRef } from "react";
 import UserContext from "./UserContext";
-import {
-  monstersField,
-  monsterShuffle,
-  monstersCave,
-  monstersHell,
-} from "./monsters";
+import { monsterShuffle } from "./monsters";
 
 const CreateBoard = () => {
   const { level } = useContext(UserContext);
@@ -23,22 +18,18 @@ const CreateBoard = () => {
     "Antidote",
   ]);
   subRef.current = newBoard;
-  //   const { resetBoard, setResetBoard } = useContext(UserContext);
-  let monsterImg = monstersField;
+
   if (level >= 1 && level < 3) {
     setBackground("/images/icons/tile/field.png");
-    monsterImg = monstersField;
   } else if (level >= 3 && level < 7) {
     setBackground("/images/icons/tile/cave.png");
-    monsterImg = monstersCave;
   } else if (level >= 7 && level < 10) {
     setBackground("/images/icons/tile/hell.png");
-    monsterImg = monstersHell;
   }
 
   useEffect(() => {
     monsterShuffle();
-
+    console.log("level", level);
     let shuffled = [
       "Monster",
       "Monster",
@@ -52,7 +43,14 @@ const CreateBoard = () => {
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
 
-    shuffled.splice(2, 0, "Arrow");
+    if (level === 3) {
+      shuffled.splice(2, 0, "Cave");
+    } else if (level === 9) {
+      shuffled.splice(2, 0, "Amulet");
+    } else {
+      shuffled.splice(2, 0, "Arrow");
+    }
+
     shuffled.splice(6, 0, "Hero");
 
     subRef.current = shuffled;

@@ -24,8 +24,6 @@ const VictoryScreen = () => {
 
     setScore(subRef.current);
 
-    console.log(subRef.current);
-
     const localScore = JSON.parse(localStorage.getItem("score"));
 
     if (!localScore) {
@@ -37,7 +35,7 @@ const VictoryScreen = () => {
       }
     }
 
-    console.log("score", JSON.parse(localStorage.getItem("score")));
+    // console.log("score", JSON.parse(localStorage.getItem("score")));
 
     setPlayer({
       hp: 10,
@@ -45,7 +43,10 @@ const VictoryScreen = () => {
       protected: false,
       color: "text-black",
     });
-    return () => {};
+
+    return () => {
+      setScore(0);
+    };
   }, []);
 
   return (

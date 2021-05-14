@@ -24,17 +24,15 @@ const CurrentBoard = () => {
   useEffect(() => {
     const actionText = levelActionText(level);
     setActionText(actionText);
-    console.log("mounted");
-    return () => {
-      console.log("unmounted");
-    };
+
+    return () => {};
   }, []);
 
   const initLogic = (tile, index) => {
     if (tile === "Hero") {
       return;
     }
-    console.log("Before Logic", score);
+
     const update = gameLogic(
       tile,
       index,
@@ -43,8 +41,6 @@ const CurrentBoard = () => {
       level,
       score
     );
-
-    console.log("After Logic", update[2]);
 
     if (!update) {
       return;
@@ -58,8 +54,6 @@ const CurrentBoard = () => {
       setScore(score + 50);
       return;
     }
-
-    console.log("score", score);
 
     subRef.current = update[0];
     boardRef.current = update[3];

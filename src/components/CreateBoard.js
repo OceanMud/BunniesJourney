@@ -7,7 +7,7 @@ const CreateBoard = () => {
   const { setBackground } = useContext(UserContext);
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
-
+  const { difficulty, setDifficulty } = useContext(UserContext);
   const subRef = useRef([
     "Monster",
     "Monster",
@@ -30,15 +30,43 @@ const CreateBoard = () => {
   useEffect(() => {
     monsterShuffle();
     console.log("level", level);
-    let shuffled = [
-      "Monster",
-      "Monster",
-      "Monster",
-      "Health",
-      "Poison",
-      "Shield",
-      "Antidote",
-    ]
+
+    let shuffledTemplate = "";
+
+    if (difficulty === "easy") {
+      shuffledTemplate = [
+        "Monster",
+        "Monster",
+        "Monster",
+        "Health",
+        "Poison",
+        "Shield",
+        "Antidote",
+      ];
+    } else if (difficulty === "medium") {
+      shuffledTemplate = [
+        "Monster",
+        "Monster",
+        "Monster",
+        "Health",
+        "Poison",
+        "Shield",
+        "Monster",
+      ];
+    }
+    if (difficulty === "hard") {
+      shuffledTemplate = [
+        "Monster",
+        "Monster",
+        "Monster",
+        "Health",
+        "Monster",
+        "Shield",
+        "Monster",
+      ];
+    }
+
+    let shuffled = shuffledTemplate
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);

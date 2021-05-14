@@ -50,7 +50,7 @@ const CurrentBoardDrawn = ({ tile, index }) => {
           {image.src.length > 0 && (
             <img
               alt={image.alt}
-              src={image.src.length > 20 ? image.src : eval(image.src)}
+              src={!image.special ? image.src : eval(image.src)}
               className=" w-14 absolute z-30 shadow-2xl left-6 top-6"
             />
           )}

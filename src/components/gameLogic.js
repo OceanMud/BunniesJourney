@@ -1,11 +1,11 @@
 import determineMove from "./determineMove";
 import { monstersField, monstersCave, monstersHell } from "./monsters";
 
-const checkStatus = (tile, player, index, level) => {
+const checkStatus = (tile, player, index, level, score) => {
   let monsterImg = "";
   let updatePlayer = player;
   let text = "";
-
+  let newScore = score;
   if (level >= 1 && level < 3) {
     monsterImg = monstersField;
   } else if (level >= 3 && level < 7) {
@@ -15,11 +15,13 @@ const checkStatus = (tile, player, index, level) => {
   }
 
   if (tile === "Monster") {
+    newScore = newScore + monsterImg[index].attack * 10;
     text = `You attack a ${monsterImg[index].name} `;
     let checkPoison = "text-black";
+    let monsterDmg = 0;
 
     if (player.protected) {
-      monsterImg[index].attack = 0;
+      monsterDmg = monsterImg[index].attack;
       text = `You attack a ${monsterImg[index].name}. You feel less Protected `;
     }
 
@@ -30,7 +32,7 @@ const checkStatus = (tile, player, index, level) => {
     }
 
     updatePlayer = [
-      player.hp - monsterImg[index].attack,
+      player.hp - (monsterImg[index].attack - monsterDmg),
       player.poisoned,
       false,
       checkPoison,
@@ -42,7 +44,7 @@ const checkStatus = (tile, player, index, level) => {
   if (tile === "") {
     text = "You move around a bit";
     let checkProtected = player.protected;
-
+    newScore = newScore - 10;
     if (checkProtected) {
       checkProtected = "text-yellow-200";
     } else {
@@ -119,10 +121,10 @@ const checkStatus = (tile, player, index, level) => {
     document.getElementById(index).style.visibility = "hidden";
   }
 
-  return [updatePlayer, text];
+  return [updatePlayer, text, newScore];
 };
 
-const gameLogic = (tile, index, boardRef, player, level) => {
+const gameLogic = (tile, index, boardRef, player, level, score) => {
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
 
@@ -131,7 +133,7 @@ const gameLogic = (tile, index, boardRef, player, level) => {
   }
 
   if (validMove) {
-    const update = checkStatus(tile, player, index, level);
+    const update = checkStatus(tile, player, index, level, score);
 
     let move = boardRef;
     move.splice(newMove, 1, "");

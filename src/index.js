@@ -20,7 +20,8 @@ const Context = () => {
   const [makeBoard, setMakeBoard] = useState(0);
   const [actionText, setActionText] = useState("");
   const [hero, setHero] = useState("images/icons/main/1.png");
-  const [checkTile, setCheckTile] = useState(false);
+  const [difficulty, setDifficulty] = useState("easy");
+  const [score, setScore] = useState(0);
   const [player, setPlayer] = useState({
     hp: 10,
     poisoned: false,
@@ -46,8 +47,10 @@ const Context = () => {
           setPlayer,
           makeBoard,
           setMakeBoard,
-          checkTile,
-          setCheckTile,
+          difficulty,
+          setDifficulty,
+          score,
+          setScore,
         }}
       >
         <App />

@@ -11,6 +11,7 @@ const CurrentBoard = () => {
   const { level, setLevel } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
+  const { score, setScore } = useContext(UserContext);
 
   const boardRef = useRef([]);
   boardRef.current = newBoard;
@@ -23,35 +24,45 @@ const CurrentBoard = () => {
   useEffect(() => {
     const actionText = levelActionText(level);
     setActionText(actionText);
-
-    return () => {};
+    console.log("mounted");
+    return () => {
+      console.log("unmounted");
+    };
   }, []);
 
   const initLogic = (tile, index) => {
     if (tile === "Hero") {
       return;
     }
-
+    console.log("Before Logic", score);
     const update = gameLogic(
       tile,
       index,
       boardRef.current,
       subRef.current,
-      level
+      level,
+      score
     );
+
+    console.log("After Logic", update[2]);
 
     if (!update) {
       return;
     }
 
+    setScore(update[2]);
+
     if (tile === "Arrow" || tile === "Cave" || tile === "Amulet") {
       setLevel(levelCount + 1);
       setMakeBoard(0);
+      setScore(score + 50);
       return;
     }
 
+    console.log("score", score);
+
     subRef.current = update[0];
-    boardRef.current = update[2];
+    boardRef.current = update[3];
 
     setPlayer({
       hp: subRef.current[0],

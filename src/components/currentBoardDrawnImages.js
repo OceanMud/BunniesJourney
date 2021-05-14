@@ -3,6 +3,7 @@ const currentBoardDrawnImages = [
     tile: "Hero",
     alt: "Hero",
     src: "hero",
+    special: true,
   },
   {
     tile: "Health",
@@ -13,6 +14,7 @@ const currentBoardDrawnImages = [
     tile: "Monster",
     alt: "Monster",
     src: "enemy[index].img",
+    special: true,
   },
   {
     tile: "Poison",

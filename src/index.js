@@ -22,6 +22,10 @@ const Context = () => {
   const [hero, setHero] = useState("images/icons/main/1.png");
   const [difficulty, setDifficulty] = useState("easy");
   const [score, setScore] = useState(0);
+  const [headerToggles, setHeaderToggles] = useState({
+    info: false,
+    leaderboard: false,
+  });
   const [player, setPlayer] = useState({
     hp: 10,
     poisoned: false,
@@ -51,6 +55,8 @@ const Context = () => {
           setDifficulty,
           score,
           setScore,
+          headerToggles,
+          setHeaderToggles,
         }}
       >
         <App />

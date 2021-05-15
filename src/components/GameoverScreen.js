@@ -4,11 +4,13 @@ import UserContext from "./UserContext";
 const GameoverScreen = () => {
   const { setActionText } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
+  const { setScore } = useContext(UserContext);
 
   useEffect(() => {
     setActionText(
       "The Bunny Kingdom has been lost! Is there any adventurer that can save us? "
     );
+    setScore(0);
     return () => {};
   }, []);
 

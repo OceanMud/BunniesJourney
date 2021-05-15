@@ -10,8 +10,6 @@ const StartScreen = () => {
   const { setDifficulty } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
 
-  const localScore = JSON.parse(localStorage.getItem("score"));
-
   const subRef = useRef(0);
   subRef.current = score;
 
@@ -37,10 +35,6 @@ const StartScreen = () => {
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
-
-      <p className=" text-gray-700 absolute text-xl top-0 left-0">
-        Best Score: {localScore}
-      </p>
 
       <img
         alt="title"

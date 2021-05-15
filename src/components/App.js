@@ -7,6 +7,7 @@ import VictoryScreen from "./VictoryScreen";
 import GameoverScreen from "./GameoverScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
 import InfoScreen from "./InfoScreen";
+import SettingsScreen from "./SettingsScreen";
 
 import "../styles/App.css";
 
@@ -24,17 +25,25 @@ function App() {
 
   const toggleInfo = () => {
     if (headerToggles.info) {
-      setHeaderToggles({ info: false, leaderboard: false });
+      setHeaderToggles({ info: false, leaderboard: false, settings: false });
     } else {
-      setHeaderToggles({ info: true, leaderboard: false });
+      setHeaderToggles({ info: true, leaderboard: false, settings: false });
     }
   };
 
   const toggleLeaderboard = () => {
     if (headerToggles.leaderboard) {
-      setHeaderToggles({ info: false, leaderboard: false });
+      setHeaderToggles({ info: false, leaderboard: false, settings: false });
     } else {
-      setHeaderToggles({ info: false, leaderboard: true });
+      setHeaderToggles({ info: false, leaderboard: true, settings: false });
+    }
+  };
+
+  const toggleSettings = () => {
+    if (headerToggles.settings) {
+      setHeaderToggles({ info: false, leaderboard: false, settings: false });
+    } else {
+      setHeaderToggles({ info: false, leaderboard: false, settings: true });
     }
   };
 
@@ -80,6 +89,12 @@ function App() {
               className=" cursor-pointer absolute opacity-80  bottom-1 right-8 h-5  "
             />
 
+            <img
+              onClick={() => toggleSettings()}
+              src="/images/settings.svg"
+              className=" cursor-pointer absolute opacity-80  bottom-1 right-14 h-5  "
+            />
+
             <div className=" text-gray-800 absolute text-xl  left-0 bottom-0">
               {level === 0 || level === 12 ? (
                 <div className="flex space-x-1 items-center ">
@@ -101,6 +116,8 @@ function App() {
             <InfoScreen />
           ) : headerToggles.leaderboard ? (
             <LeaderboardScreen />
+          ) : headerToggles.settings ? (
+            <SettingsScreen />
           ) : level === 0 ? (
             <StartScreen />
           ) : level === 10 ? (

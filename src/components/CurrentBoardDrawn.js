@@ -22,7 +22,7 @@ const CurrentBoardDrawn = ({ tile, index }) => {
 
   useEffect(() => {
     return () => {};
-  });
+  }, []);
 
   const image = currentBoardDrawnImages.find((select) => select.tile === tile);
 

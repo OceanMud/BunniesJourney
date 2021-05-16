@@ -4,6 +4,7 @@ import UserContext from "./UserContext";
 import levelActionText from "./determineActionText";
 import gameLogic from "./gameLogic";
 import CurrentBoardDrawn from "./CurrentBoardDrawn";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const CurrentBoard = () => {
   const { newBoard, setNewBoard } = useContext(UserContext);
@@ -24,9 +25,39 @@ const CurrentBoard = () => {
   useEffect(() => {
     const actionText = levelActionText(level);
     setActionText(actionText);
-
     return () => {};
   }, []);
+
+  useHotkeys("w", () => {
+    const findHero = newBoard.findIndex((select) => select === "Hero");
+
+    let heroUp = findHero - 3;
+
+    initLogic(newBoard[heroUp], heroUp);
+  });
+
+  useHotkeys("s", () => {
+    const findHero = newBoard.findIndex((select) => select === "Hero");
+    let heroDown = findHero + 3;
+
+    initLogic(newBoard[heroDown], heroDown);
+  });
+
+  useHotkeys("d", () => {
+    const findHero = newBoard.findIndex((select) => select === "Hero");
+
+    let heroRight = findHero + 1;
+
+    initLogic(newBoard[heroRight], heroRight);
+  });
+
+  useHotkeys("a", () => {
+    const findHero = newBoard.findIndex((select) => select === "Hero");
+
+    let heroLeft = findHero - 1;
+
+    initLogic(newBoard[heroLeft], heroLeft);
+  });
 
   const initLogic = (tile, index) => {
     if (tile === "Hero") {
@@ -57,6 +88,8 @@ const CurrentBoard = () => {
 
     subRef.current = update[0];
     boardRef.current = update[3];
+
+    console.log(subRef.current);
 
     setPlayer({
       hp: subRef.current[0],

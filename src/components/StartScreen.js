@@ -3,12 +3,13 @@ import UserContext from "./UserContext";
 
 const StartScreen = () => {
   const { setActionText } = useContext(UserContext);
-  const { setHero } = useContext(UserContext);
+  const { hero } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
   const { setPlayer } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { setDifficulty } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
+  const { setHeaderToggles } = useContext(UserContext);
 
   const subRef = useRef(0);
   subRef.current = score;
@@ -35,63 +36,55 @@ const StartScreen = () => {
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
-
+      <div className="top-6 left-7 absolute space-y-2 w-56 ">
+        <button
+          class="  focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded-full"
+          onMouseEnter={() =>
+            setActionText(
+              "The Bunny Kingdom is cursed! You must find and destroy the Amulet of Gondor!"
+            )
+          }
+          onClick={() => {
+            setLevel(1);
+            setDifficulty("easy");
+          }}
+        >
+          Story Mode
+        </button>
+        <button
+          onMouseEnter={() =>
+            setActionText(
+              "How far can you go? Test your skill against levels that keep getting harder!"
+            )
+          }
+          class="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded-full"
+        >
+          Endless Mode
+        </button>
+        <button
+          class="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded-full"
+          onMouseEnter={() =>
+            setActionText(
+              "Become a legend by reaching the top of the leaderboards!"
+            )
+          }
+        >
+          Leaderboard
+        </button>
+      </div>
       <img
-        alt="title"
-        src="images/TitlePick.png"
-        className="absolute top-10 left-1 h-14"
+        alt="main"
+        src={hero}
+        className="absolute top-44 right-28  h-16 cursor-pointer "
+        onClick={() =>
+          setHeaderToggles({
+            info: false,
+            leaderboard: false,
+            settings: false,
+            heros: true,
+          })
+        }
       />
-      <div
-        className="group "
-        onClick={() => {
-          setHero("images/icons/main/1.png");
-          setLevel(1);
-          setDifficulty("easy");
-        }}
-      >
-        <img
-          alt="main"
-          src="images/icons/main/1.png"
-          className="absolute top-44 left-4 h-16 cursor-pointer "
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-6 h-16 cursor-pointer">
-          Easy
-        </p>
-      </div>
-      <div
-        className="group -space-x-1"
-        onClick={() => {
-          setHero("images/icons/main/2.png");
-          setLevel(1);
-          setDifficulty("medium");
-        }}
-      >
-        <img
-          alt="person2"
-          src="images/icons/main/2.png"
-          className="absolute top-44 left-28 h-16 cursor-pointer"
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36  left-28 h-16 cursor-pointer">
-          Normal
-        </p>
-      </div>
-      <div
-        className="group space-x-2"
-        onClick={() => {
-          setHero("images/icons/main/3.png");
-          setLevel(1);
-          setDifficulty("hard");
-        }}
-      >
-        <img
-          alt="person3"
-          src="images/icons/main/3.png"
-          className="absolute top-44 left-52 h-16 cursor-pointer"
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-52 h-16 cursor-pointer">
-          Hard
-        </p>
-      </div>
     </div>
   );
 };

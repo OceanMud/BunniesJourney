@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 
 const SettingsScreen = () => {
   const { setHeaderToggles } = useContext(UserContext);
   const { level, setLevel } = useContext(UserContext);
   const { setScore } = useContext(UserContext);
+  const { setMakeBoard } = useContext(UserContext);
+
+  useEffect(() => {
+    return () => {
+      console.log("Settings unmounted");
+    };
+  }, []);
+
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
@@ -15,6 +23,7 @@ const SettingsScreen = () => {
               info: false,
               leaderboard: false,
               settings: false,
+              heros: false,
             })
           }
           class="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
@@ -22,27 +31,57 @@ const SettingsScreen = () => {
           Back
         </button>
 
-        {level !== 0 ? (
+        {level === 0 && (
+          <button
+            onClick={() =>
+              setHeaderToggles({
+                info: false,
+                leaderboard: false,
+                settings: false,
+                heros: true,
+              })
+            }
+            class="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+          >
+            Heros
+          </button>
+        )}
+
+        {level !== 0 && (
           <>
-            <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded">
-              Restart
-            </button>
             <button
+              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
-                setScore(0);
-                setLevel(0);
                 setHeaderToggles({
                   info: false,
                   leaderboard: false,
                   settings: false,
+                  heros: false,
                 });
+                setScore(0);
+                setLevel(1);
+                setMakeBoard(0);
               }}
+            >
+              Restart
+            </button>
+            <button
               class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+              onClick={() => {
+                setHeaderToggles({
+                  info: false,
+                  leaderboard: false,
+                  settings: false,
+                  heros: false,
+                });
+                setScore(0);
+                setLevel(0);
+              }}
             >
               Home
             </button>
           </>
-        ) : undefined}
+        )}
 
         <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded">
           Credits

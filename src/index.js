@@ -25,6 +25,8 @@ const Context = () => {
   const [headerToggles, setHeaderToggles] = useState({
     info: false,
     leaderboard: false,
+    settings: false,
+    heros: false,
   });
   const [player, setPlayer] = useState({
     hp: 10,

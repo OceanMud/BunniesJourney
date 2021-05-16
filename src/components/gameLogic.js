@@ -125,6 +125,17 @@ const checkStatus = (tile, player, index, level, score) => {
 };
 
 const gameLogic = (tile, index, boardRef, player, level, score) => {
+  // const verifyPlayer = {
+  //   hp: player[0],
+  //   poisoned: player[1],
+  //   protected: player[2],
+  //   color: player[3],
+  // };
+
+  // player = { ...verifyPlayer };
+  // console.log("verifyPlayer", verifyPlayer[0]);
+  // console.log("game Logic", player);
+
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
 

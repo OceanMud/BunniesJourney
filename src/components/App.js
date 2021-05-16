@@ -8,6 +8,7 @@ import GameoverScreen from "./GameoverScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
 import InfoScreen from "./InfoScreen";
 import SettingsScreen from "./SettingsScreen";
+import HerosScreen from "./HerosScreen";
 
 import "../styles/App.css";
 
@@ -25,25 +26,55 @@ function App() {
 
   const toggleInfo = () => {
     if (headerToggles.info) {
-      setHeaderToggles({ info: false, leaderboard: false, settings: false });
+      setHeaderToggles({
+        info: false,
+        leaderboard: false,
+        settings: false,
+        heros: false,
+      });
     } else {
-      setHeaderToggles({ info: true, leaderboard: false, settings: false });
+      setHeaderToggles({
+        info: true,
+        leaderboard: false,
+        settings: false,
+        heros: false,
+      });
     }
   };
 
   const toggleLeaderboard = () => {
     if (headerToggles.leaderboard) {
-      setHeaderToggles({ info: false, leaderboard: false, settings: false });
+      setHeaderToggles({
+        info: false,
+        leaderboard: false,
+        settings: false,
+        heros: false,
+      });
     } else {
-      setHeaderToggles({ info: false, leaderboard: true, settings: false });
+      setHeaderToggles({
+        info: false,
+        leaderboard: true,
+        settings: false,
+        heros: false,
+      });
     }
   };
 
   const toggleSettings = () => {
     if (headerToggles.settings) {
-      setHeaderToggles({ info: false, leaderboard: false, settings: false });
+      setHeaderToggles({
+        info: false,
+        leaderboard: false,
+        settings: false,
+        heros: false,
+      });
     } else {
-      setHeaderToggles({ info: false, leaderboard: false, settings: true });
+      setHeaderToggles({
+        info: false,
+        leaderboard: false,
+        settings: true,
+        heros: false,
+      });
     }
   };
 
@@ -118,6 +149,8 @@ function App() {
             <LeaderboardScreen />
           ) : headerToggles.settings ? (
             <SettingsScreen />
+          ) : headerToggles.heros ? (
+            <HerosScreen />
           ) : level === 0 ? (
             <StartScreen />
           ) : level === 10 ? (

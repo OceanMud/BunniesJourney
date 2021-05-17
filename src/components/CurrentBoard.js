@@ -4,7 +4,7 @@ import UserContext from "./UserContext";
 import levelActionText from "./determineActionText";
 import gameLogic from "./gameLogic";
 import CurrentBoardDrawn from "./CurrentBoardDrawn";
-import { useHotkeys } from "react-hotkeys-hook";
+import useInitialFocus from "./useInitialFocus";
 
 const CurrentBoard = () => {
   const { newBoard, setNewBoard } = useContext(UserContext);
@@ -17,6 +17,9 @@ const CurrentBoard = () => {
   const boardRef = useRef([]);
   boardRef.current = newBoard;
 
+  const initalFocusRef = useRef(null);
+  useInitialFocus(initalFocusRef);
+
   const subRef = useRef({});
   subRef.current = player;
 
@@ -25,39 +28,43 @@ const CurrentBoard = () => {
   useEffect(() => {
     const actionText = levelActionText(level);
     setActionText(actionText);
+
     return () => {};
   }, []);
 
-  useHotkeys("w", () => {
-    const findHero = newBoard.findIndex((select) => select === "Hero");
+  const handleMovement = (e) => {
+    console.log(e.key);
+    if (e.key === "w" || e.key === "ArrowUp") {
+      const findHero = newBoard.findIndex((select) => select === "Hero");
+      let heroUp = findHero - 3;
 
-    let heroUp = findHero - 3;
+      initLogic(newBoard[heroUp], heroUp);
+    }
 
-    initLogic(newBoard[heroUp], heroUp);
-  });
+    if (e.key === "s" || e.key === "ArrowDown") {
+      const findHero = newBoard.findIndex((select) => select === "Hero");
 
-  useHotkeys("s", () => {
-    const findHero = newBoard.findIndex((select) => select === "Hero");
-    let heroDown = findHero + 3;
+      let heroDown = findHero + 3;
 
-    initLogic(newBoard[heroDown], heroDown);
-  });
+      initLogic(newBoard[heroDown], heroDown);
+    }
 
-  useHotkeys("d", () => {
-    const findHero = newBoard.findIndex((select) => select === "Hero");
+    if (e.key === "d" || e.key === "ArrowRight") {
+      const findHero = newBoard.findIndex((select) => select === "Hero");
 
-    let heroRight = findHero + 1;
+      let heroRight = findHero + 1;
 
-    initLogic(newBoard[heroRight], heroRight);
-  });
+      initLogic(newBoard[heroRight], heroRight);
+    }
 
-  useHotkeys("a", () => {
-    const findHero = newBoard.findIndex((select) => select === "Hero");
+    if (e.key === "a" || e.key === "ArrowLeft") {
+      const findHero = newBoard.findIndex((select) => select === "Hero");
 
-    let heroLeft = findHero - 1;
+      let heroLeft = findHero - 1;
 
-    initLogic(newBoard[heroLeft], heroLeft);
-  });
+      initLogic(newBoard[heroLeft], heroLeft);
+    }
+  };
 
   const initLogic = (tile, index) => {
     if (tile === "Hero") {
@@ -78,6 +85,7 @@ const CurrentBoard = () => {
     }
 
     setScore(update[2]);
+    console.log(score);
 
     if (tile === "Arrow" || tile === "Cave" || tile === "Amulet") {
       setLevel(levelCount + 1);
@@ -89,8 +97,6 @@ const CurrentBoard = () => {
     subRef.current = update[0];
     boardRef.current = update[3];
 
-    console.log(subRef.current);
-
     setPlayer({
       hp: subRef.current[0],
       poisoned: subRef.current[1],
@@ -101,7 +107,6 @@ const CurrentBoard = () => {
     if (subRef.current[0] <= 0) {
       setLevel(12);
     }
-
     setActionText(update[1]);
     setNewBoard(boardRef.current);
   };
@@ -111,8 +116,11 @@ const CurrentBoard = () => {
       {boardRef.current.map((tile, index) => (
         <div
           key={index}
-          className="cursor-pointer"
+          ref={initalFocusRef}
+          className="cursor-pointer outline-none"
           onClick={() => initLogic(tile, index)}
+          onKeyDown={(e) => handleMovement(e)}
+          tabIndex="1"
         >
           <CurrentBoardDrawn tile={tile} index={index} />
         </div>

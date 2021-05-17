@@ -45,6 +45,7 @@ const checkStatus = (tile, player, index, level, score) => {
     text = "You move around a bit";
     let checkProtected = player.protected;
     newScore = newScore - 10;
+
     if (checkProtected) {
       checkProtected = "text-yellow-200";
     } else {
@@ -120,7 +121,7 @@ const checkStatus = (tile, player, index, level, score) => {
 
     document.getElementById(index).style.visibility = "hidden";
   }
-
+  console.log("Processing Score", newScore);
   return [updatePlayer, text, newScore];
 };
 
@@ -153,6 +154,7 @@ const gameLogic = (tile, index, boardRef, player, level, score) => {
     // console.log("move", boardRef);
     // console.log("test", boardRef[index]);
 
+    console.log([...update, boardRef]);
     return [...update, boardRef];
   }
 };

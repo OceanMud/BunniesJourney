@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 import CreateBoard from "./CreateBoard";
 import CurrentBoard from "./CurrentBoard";
@@ -9,6 +9,9 @@ import LeaderboardScreen from "./LeaderboardScreen";
 import InfoScreen from "./InfoScreen";
 import SettingsScreen from "./SettingsScreen";
 import HerosScreen from "./HerosScreen";
+import InitScreen from "./InitScreen";
+
+import ReactAudioPlayer from "react-audio-player";
 
 import "../styles/App.css";
 
@@ -19,6 +22,8 @@ function App() {
   const { makeBoard, setMakeBoard } = useContext(UserContext);
   const { actionText } = useContext(UserContext);
   const { headerToggles, setHeaderToggles } = useContext(UserContext);
+  const { music, setMusic } = useContext(UserContext);
+  const { initScreen } = useContext(UserContext);
   const subRef = useRef(1);
   subRef.current = level;
 
@@ -80,6 +85,10 @@ function App() {
 
   return (
     <div>
+      {music ? (
+        <ReactAudioPlayer src="./sounds/Field_loop2.mp3" autoPlay loop />
+      ) : undefined}
+
       <button
         className="  text-gray-700"
         Alt="Secret Button to skip level (in the top left)"
@@ -143,7 +152,9 @@ function App() {
             </div>
           </div>
 
-          {headerToggles.info ? (
+          {initScreen ? (
+            <InitScreen />
+          ) : headerToggles.info ? (
             <InfoScreen />
           ) : headerToggles.leaderboard ? (
             <LeaderboardScreen />

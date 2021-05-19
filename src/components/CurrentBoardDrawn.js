@@ -9,6 +9,7 @@ const CurrentBoardDrawn = ({ tile, index }) => {
   const { hero } = useContext(UserContext);
   const { player } = useContext(UserContext);
   const { level } = useContext(UserContext);
+  const { setActionText } = useContext(UserContext);
 
   let enemy = monstersField;
 
@@ -24,10 +25,45 @@ const CurrentBoardDrawn = ({ tile, index }) => {
     return () => {};
   }, []);
 
+  const actionLogic = (tile) => {
+    console.log(tile);
+
+    if (tile === "Hero") {
+      setActionText("The Hero! ");
+    }
+
+    if (tile === "Monster") {
+      setActionText("Attack at your own risk");
+    }
+
+    if (tile === "Antidote") {
+      setActionText("Cures poison with antidote  ");
+    }
+
+    if (tile === "Poison") {
+      setActionText("1 dmg every move while poisoned");
+    }
+
+    if (tile === "Shield") {
+      setActionText("Shields the first damage taken");
+    }
+
+    if (tile === "Health") {
+      setActionText("Brings you back to full health");
+    }
+
+    if (tile === "Arrow" || tile === "Cave" || tile === "Amulet") {
+      setActionText("The Exit!");
+    }
+  };
+
   const image = currentBoardDrawnImages.find((select) => select.tile === tile);
 
   return (
-    <div className="relative border-l  border-b border-r-0 border-black ">
+    <div
+      onMouseEnter={() => actionLogic(tile)}
+      className="relative border-l  border-b border-r-0 border-black "
+    >
       <img alt="background" src={background} className="w-24 shadow-2xl " />
 
       {image.tile === "Hero" && (

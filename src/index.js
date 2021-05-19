@@ -17,7 +17,11 @@ const Context = () => {
     "Shield",
     "Antidote",
   ]);
+
   const [makeBoard, setMakeBoard] = useState(0);
+  const [initScreen, setInitScreen] = useState(true);
+  const [sound, setSound] = useState(true);
+  const [music, setMusic] = useState(false);
   const [actionText, setActionText] = useState("");
   const [hero, setHero] = useState("images/icons/main/1.png");
   const [difficulty, setDifficulty] = useState("easy");
@@ -39,6 +43,12 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          initScreen,
+          setInitScreen,
+          sound,
+          setSound,
+          music,
+          setMusic,
           actionText,
           setActionText,
           level,

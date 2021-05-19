@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useRef } from "react";
 import UserContext from "./UserContext";
+import useSound from "use-sound";
 
 import levelActionText from "./determineActionText";
 import gameLogic from "./gameLogic";
@@ -13,6 +14,11 @@ const CurrentBoard = () => {
   const { setActionText } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
+  const [playGulp] = useSound("./sounds/gulp.mp3", { volume: 0.5 });
+  const [playWeapon] = useSound(`./sounds/weapon1.mp3`, { volume: 0.2 });
+  const [playWeapon2] = useSound(`./sounds/weapon2.mp3`, { volume: 0.2 });
+  const [playWeapon3] = useSound(`./sounds/weapon3.mp3`, { volume: 0.2 });
+  const [playWeapon4] = useSound(`./sounds/weapon4.mp3`, { volume: 0.2 });
 
   const boardRef = useRef([]);
   boardRef.current = newBoard;
@@ -82,6 +88,31 @@ const CurrentBoard = () => {
 
     if (!update) {
       return;
+    }
+
+    if (
+      tile === "Health" ||
+      tile === "Poison" ||
+      tile === "Antidote" ||
+      tile === "Shield"
+    ) {
+      playGulp();
+    }
+
+    console.log(tile);
+
+    if (tile === "Monster") {
+      const rWeapon = Math.floor(Math.random() * 4) + 1;
+
+      if (rWeapon === 1) {
+        playWeapon();
+      } else if (rWeapon === 2) {
+        playWeapon2();
+      } else if (rWeapon === 3) {
+        playWeapon3();
+      } else if (rWeapon === 4) {
+        playWeapon4();
+      }
     }
 
     setScore(update[2]);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 
 const SettingsScreen = () => {
@@ -7,11 +7,37 @@ const SettingsScreen = () => {
   const { setScore } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
 
+  const { sound, setSound } = useContext(UserContext);
+  const { music, setMusic } = useContext(UserContext);
+
+  const [soundOn, setSoundOn] = useState(false);
+
+  // const [playMusic, { stop, isPlaying }] = useSound("./sounds/Field_loop.mp3");
+
   useEffect(() => {
-    return () => {
-      console.log("Settings unmounted");
-    };
-  }, []);
+    if (soundOn) {
+    }
+    console.log("test");
+    if (!soundOn) {
+    }
+
+    return () => {};
+  }, [soundOn]);
+
+  const checkMusic = () => {
+    if (music) {
+      // setMusic(false);
+      // playMusic();
+      return;
+    }
+
+    if (!music) {
+      // setMusic(true);
+      // stop();
+
+      return;
+    }
+  };
 
   return (
     <div className="relative">
@@ -26,7 +52,7 @@ const SettingsScreen = () => {
               heros: false,
             })
           }
-          class="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+          className="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >
           Back
         </button>
@@ -41,7 +67,7 @@ const SettingsScreen = () => {
                 heros: true,
               })
             }
-            class="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+            className="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
           >
             Heros
           </button>
@@ -50,7 +76,7 @@ const SettingsScreen = () => {
         {level !== 0 && (
           <>
             <button
-              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
                 setHeaderToggles({
                   info: false,
@@ -66,7 +92,7 @@ const SettingsScreen = () => {
               Restart
             </button>
             <button
-              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
                 setHeaderToggles({
                   info: false,
@@ -83,8 +109,15 @@ const SettingsScreen = () => {
           </>
         )}
 
-        <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded">
-          Credits
+        <button
+          onClick={() => setMusic(!music)}
+          className="relative text-green-500 bg-green-500 border-green-700 hover:bg-green-700 hover:text-green-700"
+        >
+          <img
+            className="left-12 top-0 opacity-70 absolute h-full"
+            src="./images/sound.svg"
+          />
+          sasdasdasdasda
         </button>
       </div>
     </div>

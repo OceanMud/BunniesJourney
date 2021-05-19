@@ -20,7 +20,7 @@ const CreateBoard = () => {
   subRef.current = newBoard;
 
   if (level >= 1 && level < 3) {
-    setBackground("/images/icons/tile/field.png");
+    setBackground("/images/icons/tile/cave.png");
   } else if (level >= 3 && level < 7) {
     setBackground("/images/icons/tile/cave.png");
   } else if (level >= 7 && level < 10) {

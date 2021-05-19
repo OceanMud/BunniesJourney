@@ -7,10 +7,12 @@ const GameoverScreen = () => {
   const { setScore } = useContext(UserContext);
 
   useEffect(() => {
+    console.log("gameover mounted");
     setActionText(
       "The Bunny Kingdom has been lost! Is there any adventurer that can save us? "
     );
     setScore(0);
+
     return () => {};
   }, []);
 

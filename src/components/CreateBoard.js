@@ -5,9 +5,10 @@ import { monsterShuffle } from "./monsters";
 const CreateBoard = () => {
   const { level } = useContext(UserContext);
   const { setBackground } = useContext(UserContext);
+  const { setPlayer } = useContext(UserContext);
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
-  const { difficulty, setDifficulty } = useContext(UserContext);
+  const { difficulty } = useContext(UserContext);
   const subRef = useRef([
     "Monster",
     "Monster",
@@ -20,7 +21,7 @@ const CreateBoard = () => {
   subRef.current = newBoard;
 
   if (level >= 1 && level < 3) {
-    setBackground("/images/icons/tile/cave.png");
+    setBackground("/images/icons/tile/field.png");
   } else if (level >= 3 && level < 7) {
     setBackground("/images/icons/tile/cave.png");
   } else if (level >= 7 && level < 10) {
@@ -82,6 +83,15 @@ const CreateBoard = () => {
 
     subRef.current = shuffled;
     setNewBoard(subRef.current);
+
+    if (level === 1) {
+      setPlayer({
+        hp: 10,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
 
     setMakeBoard(1);
     return () => {};

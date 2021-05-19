@@ -20,9 +20,9 @@ const Context = () => {
 
   const [makeBoard, setMakeBoard] = useState(0);
   const [initScreen, setInitScreen] = useState(true);
-  const [sound, setSound] = useState(true);
+  const [sound, setSound] = useState(false);
   const [music, setMusic] = useState(false);
-  const [actionText, setActionText] = useState("");
+  const [actionText, setActionText] = useState("Welcome to Bunnies Journey!");
   const [hero, setHero] = useState("images/icons/main/1.png");
   const [difficulty, setDifficulty] = useState("easy");
   const [score, setScore] = useState(0);

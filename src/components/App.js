@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from "react";
+import React, { useRef, useContext } from "react";
 import UserContext from "./UserContext";
 import CreateBoard from "./CreateBoard";
 import CurrentBoard from "./CurrentBoard";
@@ -22,8 +22,9 @@ function App() {
   const { makeBoard, setMakeBoard } = useContext(UserContext);
   const { actionText } = useContext(UserContext);
   const { headerToggles, setHeaderToggles } = useContext(UserContext);
-  const { music, setMusic } = useContext(UserContext);
+  const { music } = useContext(UserContext);
   const { initScreen } = useContext(UserContext);
+
   const subRef = useRef(1);
   subRef.current = level;
 

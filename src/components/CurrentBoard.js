@@ -14,11 +14,21 @@ const CurrentBoard = () => {
   const { setActionText } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
+  const { sound } = useContext(UserContext);
   const [playGulp] = useSound("./sounds/gulp.mp3", { volume: 0.5 });
   const [playWeapon] = useSound(`./sounds/weapon1.mp3`, { volume: 0.2 });
   const [playWeapon2] = useSound(`./sounds/weapon2.mp3`, { volume: 0.2 });
   const [playWeapon3] = useSound(`./sounds/weapon3.mp3`, { volume: 0.2 });
   const [playWeapon4] = useSound(`./sounds/weapon4.mp3`, { volume: 0.2 });
+  const [playLevelComplete] = useSound(`./sounds/levelcomplete.mp3`, {
+    volume: 0.2,
+  });
+  const [playGameOver] = useSound("/sounds/lose.mp3", {
+    volume: 0.2,
+  });
+  const [playWin] = useSound(`./sounds/win.mp3`, {
+    volume: 0.2,
+  });
 
   const boardRef = useRef([]);
   boardRef.current = newBoard;
@@ -33,7 +43,10 @@ const CurrentBoard = () => {
 
   useEffect(() => {
     const actionText = levelActionText(level);
-    setActionText(actionText);
+
+    setTimeout(() => {
+      setActionText(actionText);
+    }, 300);
 
     return () => {};
   }, []);
@@ -90,31 +103,38 @@ const CurrentBoard = () => {
       return;
     }
 
-    if (
-      tile === "Health" ||
-      tile === "Poison" ||
-      tile === "Antidote" ||
-      tile === "Shield"
-    ) {
-      playGulp();
-    }
+    if (sound) {
+      if (
+        tile === "Health" ||
+        tile === "Poison" ||
+        tile === "Antidote" ||
+        tile === "Shield"
+      ) {
+        playGulp();
+      }
 
-    console.log(tile);
+      if (tile === "Arrow" || tile === "Cave") {
+        playLevelComplete();
+      }
 
-    if (tile === "Monster") {
-      const rWeapon = Math.floor(Math.random() * 4) + 1;
+      if (tile === "Amulet") {
+        playWin();
+      }
 
-      if (rWeapon === 1) {
-        playWeapon();
-      } else if (rWeapon === 2) {
-        playWeapon2();
-      } else if (rWeapon === 3) {
-        playWeapon3();
-      } else if (rWeapon === 4) {
-        playWeapon4();
+      if (tile === "Monster") {
+        const rWeapon = Math.floor(Math.random() * 4) + 1;
+
+        if (rWeapon === 1) {
+          playWeapon();
+        } else if (rWeapon === 2) {
+          playWeapon2();
+        } else if (rWeapon === 3) {
+          playWeapon3();
+        } else if (rWeapon === 4) {
+          playWeapon4();
+        }
       }
     }
-
     setScore(update[2]);
     console.log(score);
 
@@ -136,6 +156,7 @@ const CurrentBoard = () => {
     });
 
     if (subRef.current[0] <= 0) {
+      playGameOver();
       setLevel(12);
     }
     setActionText(update[1]);

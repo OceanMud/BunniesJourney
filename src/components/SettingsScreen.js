@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import UserContext from "./UserContext";
+import useSound from "use-sound";
 
 const SettingsScreen = () => {
   const { setHeaderToggles } = useContext(UserContext);
@@ -7,42 +8,56 @@ const SettingsScreen = () => {
   const { setScore } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
 
-  const { sound, setSound } = useContext(UserContext);
   const { music, setMusic } = useContext(UserContext);
 
-  const [soundOn, setSoundOn] = useState(false);
-
-  // const [playMusic, { stop, isPlaying }] = useSound("./sounds/Field_loop.mp3");
-
-  useEffect(() => {
-    if (soundOn) {
-    }
-    console.log("test");
-    if (!soundOn) {
-    }
-
-    return () => {};
-  }, [soundOn]);
-
-  const checkMusic = () => {
-    if (music) {
-      // setMusic(false);
-      // playMusic();
-      return;
-    }
-
-    if (!music) {
-      // setMusic(true);
-      // stop();
-
-      return;
-    }
-  };
+  const { sound, setSound } = useContext(UserContext);
+  const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
+    volume: 0.3,
+  });
 
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
-      <div className="top-6 left-16 absolute space-y-2 w-36 ">
+      <div className="top-0 -mt-1 left-20 absolute space-y-2 w-32 ">
+        <button
+          onMouseEnter={() => {
+            if (sound) {
+              playbuttonHover();
+            }
+          }}
+          className={`group focus:outline-none ${
+            music ? "bg-blue-500   bg-opacity-20" : "bg-red-500   bg-opacity-20"
+          }   h-14 w-14  border-black border-2`}
+        >
+          <img
+            alt="title"
+            src={music ? "images/music.svg" : "images/musicoff.svg"}
+            className=" h-10 ml-1 opacity-75 group-hover:opacity-100"
+            onClick={() => {
+              setMusic(!music);
+            }}
+          />
+        </button>
+
+        <button
+          onMouseEnter={() => {
+            if (sound) {
+              playbuttonHover();
+            }
+          }}
+          className={` ml-2 group focus:outline-none ${
+            sound ? "bg-blue-500   bg-opacity-20" : "bg-red-500   bg-opacity-20"
+          }   h-14 w-14  border-black border-2`}
+        >
+          <img
+            alt="title"
+            src={sound ? "images/sound.svg" : "images/soundoff.svg"}
+            className=" h-10 ml-1 opacity-75 group-hover:opacity-100"
+            onClick={() => {
+              setSound(!sound);
+            }}
+          />
+        </button>
         <button
           onClick={() =>
             setHeaderToggles({
@@ -52,9 +67,14 @@ const SettingsScreen = () => {
               heros: false,
             })
           }
-          className="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+          onMouseEnter={() => {
+            if (sound) {
+              playbuttonHover();
+            }
+          }}
+          className="   bg-blue-500 hover:bg-blue-700 font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >
-          Back
+          <img className=" opacity-70 h-10 " src="images/settingsplay.svg" />
         </button>
 
         {level === 0 && (
@@ -67,16 +87,21 @@ const SettingsScreen = () => {
                 heros: true,
               })
             }
-            className="  w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+            onMouseEnter={() => {
+              if (sound) {
+                playbuttonHover();
+              }
+            }}
+            className="   bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
           >
-            Heros
+            <img className=" opacity-70 h-10 " src="./images/heros.svg" />
           </button>
         )}
 
         {level !== 0 && (
           <>
             <button
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+              className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
                 setHeaderToggles({
                   info: false,
@@ -88,11 +113,16 @@ const SettingsScreen = () => {
                 setLevel(1);
                 setMakeBoard(0);
               }}
+              onMouseEnter={() => {
+                if (sound) {
+                  playbuttonHover();
+                }
+              }}
             >
-              Restart
+              <img className=" opacity-70 h-10 " src="images/replay.svg" />
             </button>
             <button
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+              className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
                 setHeaderToggles({
                   info: false,
@@ -100,25 +130,20 @@ const SettingsScreen = () => {
                   settings: false,
                   heros: false,
                 });
+
                 setScore(0);
                 setLevel(0);
               }}
+              onMouseEnter={() => {
+                if (sound) {
+                  playbuttonHover();
+                }
+              }}
             >
-              Home
+              <img className=" opacity-70 h-10 " src="images/home.svg" />
             </button>
           </>
         )}
-
-        <button
-          onClick={() => setMusic(!music)}
-          className="relative text-green-500 bg-green-500 border-green-700 hover:bg-green-700 hover:text-green-700"
-        >
-          <img
-            className="left-12 top-0 opacity-70 absolute h-full"
-            src="./images/sound.svg"
-          />
-          sasdasdasdasda
-        </button>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const SettingsScreen = () => {
   const { level, setLevel } = useContext(UserContext);
   const { setScore } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
-
+  const { setDisableHs } = useContext(UserContext);
   const { music, setMusic } = useContext(UserContext);
 
   const { sound, setSound } = useContext(UserContext);
@@ -103,6 +103,7 @@ const SettingsScreen = () => {
             <button
               className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
+                setDisableHs(false);
                 setHeaderToggles({
                   info: false,
                   leaderboard: false,
@@ -124,6 +125,7 @@ const SettingsScreen = () => {
             <button
               className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
+                setDisableHs(false);
                 setHeaderToggles({
                   info: false,
                   leaderboard: false,

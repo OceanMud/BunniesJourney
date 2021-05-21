@@ -24,6 +24,7 @@ const Context = () => {
     level: 0,
   });
   const [makeBoard, setMakeBoard] = useState(0);
+  const [disableHs, setDisableHs] = useState(false);
   const [initScreen, setInitScreen] = useState(true);
   const [sound, setSound] = useState(false);
   const [music, setMusic] = useState(false);
@@ -49,6 +50,8 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          disableHs,
+          setDisableHs,
           highScoreCount,
           setHighScoreCount,
           enemy,

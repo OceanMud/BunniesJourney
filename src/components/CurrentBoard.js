@@ -151,7 +151,7 @@ const CurrentBoard = () => {
         tile === "Health" ||
         tile === "Poison" ||
         tile === "Antidote" ||
-        tile === "Protection"
+        tile === "Shield"
       ) {
         playGulp();
       }
@@ -170,25 +170,23 @@ const CurrentBoard = () => {
 
       if (tile === "Amulet") {
         if (sound) {
-          if (sound) {
-            setLevel(10);
-            setTimeout(() => {
-              playVictory();
-            }, 500);
+          setTimeout(() => {
+            playVictory();
+          }, 500);
 
-            setTimeout(() => {
-              playVictory2();
-            }, 1000);
+          setTimeout(() => {
+            playVictory2();
+          }, 1000);
 
-            setTimeout(() => {
-              playVictory3();
-            }, 1500);
+          setTimeout(() => {
+            playVictory3();
+          }, 1500);
 
-            setTimeout(() => {
-              playVictory4();
-            }, 2000);
-          }
+          setTimeout(() => {
+            playVictory4();
+          }, 2000);
         }
+        setLevel(10);
       }
 
       if (tile === "Monster") {
@@ -250,7 +248,6 @@ const CurrentBoard = () => {
       if (mode === "Endless") {
         setDifficulty("Easy");
         if (sound) {
-          setLevel(10);
           setTimeout(() => {
             playVictory();
           }, 500);
@@ -267,6 +264,7 @@ const CurrentBoard = () => {
             playVictory4();
           }, 2000);
         }
+        setLevel(10);
       }
       if (mode === "Story") {
         setLevel(12);

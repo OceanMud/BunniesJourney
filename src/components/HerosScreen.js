@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import UserContext from "./UserContext";
+import useSound from "use-sound";
 
 const HerosScreen = () => {
   const { setHeaderToggles } = useContext(UserContext);
+  const { sound } = useContext(UserContext);
   const { setHero } = useContext(UserContext);
+  const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
+    volume: 0.3,
+  });
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
@@ -22,8 +27,11 @@ const HerosScreen = () => {
             settings: false,
             heros: false,
           });
-          //   setLevel(1);
-          //   setDifficulty("easy");
+        }}
+        onMouseEnter={() => {
+          if (sound) {
+            playbuttonHover();
+          }
         }}
       >
         <img
@@ -45,8 +53,11 @@ const HerosScreen = () => {
             settings: false,
             heros: false,
           });
-          //   setLevel(1);
-          //   setDifficulty("medium");
+        }}
+        onMouseEnter={() => {
+          if (sound) {
+            playbuttonHover();
+          }
         }}
       >
         <img
@@ -68,8 +79,11 @@ const HerosScreen = () => {
             settings: false,
             heros: false,
           });
-          //   setLevel(1);
-          //   setDifficulty("hard");
+        }}
+        onMouseEnter={() => {
+          if (sound) {
+            playbuttonHover();
+          }
         }}
       >
         <img

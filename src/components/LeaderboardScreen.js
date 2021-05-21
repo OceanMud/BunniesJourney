@@ -1,6 +1,17 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import UserContext from "./UserContext";
+import useSound from "use-sound";
 const LeaderboardScreen = () => {
+  const { sound } = useContext(UserContext);
+  const { level, setLevel } = useContext(UserContext);
+  const { setHeaderToggles } = useContext(UserContext);
+  const { setMakeBoard } = useContext(UserContext);
+  const { setScore } = useContext(UserContext);
+  const { setDisableHs } = useContext(UserContext);
+
+  const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
+    volume: 0.3,
+  });
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
@@ -27,43 +38,51 @@ const LeaderboardScreen = () => {
           </div>
         </div>
         <div className="bottom-0 left-16 absolute  space-x-4">
+          {level !== 0 ? (
+            <button
+              onMouseEnter={() => {
+                if (sound) {
+                  playbuttonHover();
+                }
+              }}
+              onClick={() => {
+                setHeaderToggles({
+                  info: false,
+                  leaderboard: false,
+                  settings: false,
+                  heros: false,
+                });
+              }}
+              className=" focus:outline-none  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded"
+            >
+              <img
+                className=" opacity-70 h-10 "
+                src="images/settingsplay.svg"
+              />
+            </button>
+          ) : undefined}
+
           <button
             onMouseEnter={() => {
-              // if (sound) {
-              //   playbuttonHover();
-              // }
+              if (sound) {
+                playbuttonHover();
+              }
             }}
             onClick={() => {
-              // setHighScoreCount({
-              //   enemy: 0,
-              //   potion: 0,
-              //   level: 0,
-              // });
-              // setScore(0);
-              // setLevel(1);
-              // setMakeBoard(0);
+              setDisableHs(false);
+              setHeaderToggles({
+                info: false,
+                leaderboard: false,
+                settings: false,
+                heros: false,
+              });
+              setScore(0);
+              setLevel(0);
+              setMakeBoard(0);
             }}
-            className="   opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded"
-          >
-            <img className=" opacity-70 h-10 " src="images/settingsplay.svg" />
-          </button>
-          <button
-            onMouseEnter={() => {
-              // if (sound) {
-              //   playbuttonHover();
-              // }
-            }}
-            onClick={() => {
-              // setHighScoreCount({
-              //   enemy: 0,
-              //   potion: 0,
-              //   level: 0,
-              // });
-              // setScore(0);
-              // setLevel(0);
-              // setMakeBoard(0);
-            }}
-            className="  mt-2  opacity-95  bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded"
+            className={` focus:outline-none  mt-2  opacity-95  bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded ${
+              level === 0 && "ml-10"
+            } `}
           >
             <img className=" opacity-70 h-10 " src="images/home.svg" />
           </button>

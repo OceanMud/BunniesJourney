@@ -44,7 +44,7 @@ const StartScreen = () => {
       <img alt="background" src="images/background.jpg" className="h-72" />
       <div className="top-6 left-7 absolute space-y-2 w-56 ">
         <button
-          class="  focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+          className="  focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
           onMouseEnter={() => {
             setActionText(
               "The Bunny Kingdom is cursed! You must find and destroy the Amulet of Gondor!"
@@ -74,12 +74,20 @@ const StartScreen = () => {
             setMode("Endless");
             setDifficulty("Easy");
           }}
-          class="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
+          className="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >
           Endless Mode
         </button>
         <button
-          class="focus:outline-none opacity-90 shadow-2xl w-full bg-yellow-300 hover:bg-yellow-500 text-white font-bold  px-10 border border-b-2  border-yellow-500 rounded"
+          className="focus:outline-none opacity-90 shadow-2xl w-full bg-yellow-300 hover:bg-yellow-500 text-white font-bold  px-10 border border-b-2  border-yellow-500 rounded"
+          onClick={() =>
+            setHeaderToggles({
+              info: false,
+              leaderboard: true,
+              settings: false,
+              heros: false,
+            })
+          }
           onMouseEnter={() => {
             setActionText(
               "Become a legend by reaching the top of the leaderboards!"

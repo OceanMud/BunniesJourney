@@ -5,10 +5,11 @@ import useSound from "use-sound";
 const VictoryScreen = () => {
   const { setActionText } = useContext(UserContext);
   const { mode } = useContext(UserContext);
-  const { setMakeBoard } = useContext(UserContext);
+
   const { player, setPlayer } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
+  const { setMakeBoard } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
   const { highScoreCount, setHighScoreCount } = useContext(UserContext);
   const { sound } = useContext(UserContext);
@@ -18,6 +19,7 @@ const VictoryScreen = () => {
   const [finalScore, setFinalScore] = useState(false);
   const [buttonScore, setButtonScore] = useState(false);
   const [submitScore, setSubmitScore] = useState(false);
+  const { disableHs, setDisableHs } = useContext(UserContext);
   const [name, setName] = useState("");
 
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
@@ -51,14 +53,6 @@ const VictoryScreen = () => {
     setActionText(
       "You Smash the Amulet and lift the curse of The Bunny Kingdom!"
     );
-
-    subRef.current = subRef.current + player.hp * 10;
-
-    if (player.protected) {
-      subRef.current = subRef.current + 50;
-    }
-
-    setScore(subRef.current);
 
     const localScore = JSON.parse(localStorage.getItem("score"));
 
@@ -140,7 +134,9 @@ const VictoryScreen = () => {
                         playbuttonHover();
                       }
                     }}
-                    onClick={() => {}}
+                    onClick={() => {
+                      setDisableHs(true);
+                    }}
                     class="focus:outline-none opacity-90 shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10 border border-b-2 border-green-700 rounded -ml-1 mt-4"
                   >
                     <img
@@ -172,10 +168,28 @@ const VictoryScreen = () => {
                 setLevel(1);
                 setMakeBoard(0);
               }}
-              className="   opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-4 px-5 border-2 border-blue-700 rounded"
+              className={`${
+                disableHs && "ml-11"
+              }  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-4 px-5 border-2 border-blue-700 rounded`}
             >
               <img className=" opacity-70 h-10 " src="images/replay.svg" />
             </button>
+            {!disableHs && (
+              <button
+                onMouseEnter={() => {
+                  if (sound) {
+                    playbuttonHover();
+                  }
+                }}
+                onClick={() => {
+                  setDisableHs(false);
+                  setSubmitScore(true);
+                }}
+                className="mt-2  bg-yellow-300 hover:bg-yellow-500 font-bold py-4 px-5 border-2 border-yellow-400 rounded"
+              >
+                <img className=" opacity-70 h-10 " src="images/trophy.svg" />
+              </button>
+            )}
             <button
               onMouseEnter={() => {
                 if (sound) {
@@ -183,19 +197,7 @@ const VictoryScreen = () => {
                 }
               }}
               onClick={() => {
-                setSubmitScore(true);
-              }}
-              className="  mt-2  bg-yellow-300 hover:bg-yellow-500 font-bold py-4 px-5 border-2 border-yellow-400 rounded"
-            >
-              <img className=" opacity-70 h-10 " src="images/trophy.svg" />
-            </button>
-            <button
-              onMouseEnter={() => {
-                if (sound) {
-                  playbuttonHover();
-                }
-              }}
-              onClick={() => {
+                setDisableHs(false);
                 setHighScoreCount({
                   enemy: 0,
                   potion: 0,

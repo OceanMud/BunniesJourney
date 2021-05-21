@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 
@@ -13,6 +13,11 @@ const CurrentBoard = () => {
   const { level, setLevel } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
+  const { mode } = useContext(UserContext);
+  const { enemy } = useContext(UserContext);
+  const { difficulty, setDifficulty } = useContext(UserContext);
+  const { highScoreCount, setHighScoreCount } = useContext(UserContext);
+
   const { score, setScore } = useContext(UserContext);
   const { sound } = useContext(UserContext);
   const [playGulp] = useSound("./sounds/gulp.mp3", { volume: 0.5 });
@@ -23,6 +28,12 @@ const CurrentBoard = () => {
   const [playLevelComplete] = useSound(`./sounds/levelcomplete.mp3`, {
     volume: 0.2,
   });
+
+  const [playVictory] = useSound(`/sounds/victory.mp3`, { volume: 0.5 });
+  const [playVictory2] = useSound(`/sounds/victory2.mp3`, { volume: 0.5 });
+  const [playVictory3] = useSound(`/sounds/victory3.mp3`, { volume: 0.5 });
+  const [playVictory4] = useSound(`/sounds/victory4.mp3`, { volume: 0.7 });
+
   const [playGameOver] = useSound("/sounds/lose.mp3", {
     volume: 0.2,
   });
@@ -42,7 +53,7 @@ const CurrentBoard = () => {
   let levelCount = level;
 
   useEffect(() => {
-    const actionText = levelActionText(level);
+    const actionText = levelActionText(level, enemy, mode);
 
     setTimeout(() => {
       setActionText(actionText);
@@ -52,7 +63,6 @@ const CurrentBoard = () => {
   }, []);
 
   const handleMovement = (e) => {
-    console.log(e.key);
     if (e.key === "w" || e.key === "ArrowUp") {
       const findHero = newBoard.findIndex((select) => select === "Hero");
       let heroUp = findHero - 3;
@@ -96,11 +106,44 @@ const CurrentBoard = () => {
       boardRef.current,
       subRef.current,
       level,
-      score
+      score,
+      mode,
+      enemy
     );
 
     if (!update) {
       return;
+    }
+
+    let newHighScoreCount = highScoreCount;
+
+    if (
+      tile === "Antidote" ||
+      tile === "Poison" ||
+      tile === "Health" ||
+      tile === "Shield"
+    ) {
+      newHighScoreCount.potion++;
+      setHighScoreCount({
+        ...newHighScoreCount,
+      });
+      console.log(highScoreCount);
+    }
+
+    if (tile === "Monster") {
+      newHighScoreCount.enemy++;
+      setHighScoreCount({
+        ...newHighScoreCount,
+      });
+      console.log(highScoreCount);
+    }
+
+    if (tile === "Arrow" || tile === "Cave" || tile === "Sign") {
+      newHighScoreCount.level++;
+      setHighScoreCount({
+        ...newHighScoreCount,
+      });
+      console.log(highScoreCount);
     }
 
     if (sound) {
@@ -108,17 +151,44 @@ const CurrentBoard = () => {
         tile === "Health" ||
         tile === "Poison" ||
         tile === "Antidote" ||
-        tile === "Shield"
+        tile === "Protection"
       ) {
         playGulp();
       }
 
       if (tile === "Arrow" || tile === "Cave") {
-        playLevelComplete();
+        if (sound) {
+          playLevelComplete();
+        }
+      }
+
+      if (tile === "Amulet" || tile === "Sign") {
+        if (sound) {
+          playWin();
+        }
       }
 
       if (tile === "Amulet") {
-        playWin();
+        if (sound) {
+          if (sound) {
+            setLevel(10);
+            setTimeout(() => {
+              playVictory();
+            }, 500);
+
+            setTimeout(() => {
+              playVictory2();
+            }, 1000);
+
+            setTimeout(() => {
+              playVictory3();
+            }, 1500);
+
+            setTimeout(() => {
+              playVictory4();
+            }, 2000);
+          }
+        }
       }
 
       if (tile === "Monster") {
@@ -136,10 +206,27 @@ const CurrentBoard = () => {
       }
     }
     setScore(update[2]);
-    console.log(score);
 
-    if (tile === "Arrow" || tile === "Cave" || tile === "Amulet") {
+    if (
+      tile === "Arrow" ||
+      tile === "Cave" ||
+      tile === "Amulet" ||
+      tile === "Sign"
+    ) {
+      if (mode === "Endless" && level === 9) {
+        if (difficulty === "Easy") {
+          setDifficulty("Medium");
+        } else if (difficulty === "Medium") {
+          setDifficulty("Hard");
+        }
+
+        setLevel(1);
+        setMakeBoard(0);
+        setScore(score + 50);
+        return;
+      }
       setLevel(levelCount + 1);
+
       setMakeBoard(0);
       setScore(score + 50);
       return;
@@ -156,8 +243,34 @@ const CurrentBoard = () => {
     });
 
     if (subRef.current[0] <= 0) {
-      playGameOver();
-      setLevel(12);
+      if (sound) {
+        playGameOver();
+      }
+
+      if (mode === "Endless") {
+        setDifficulty("Easy");
+        if (sound) {
+          setLevel(10);
+          setTimeout(() => {
+            playVictory();
+          }, 500);
+
+          setTimeout(() => {
+            playVictory2();
+          }, 1000);
+
+          setTimeout(() => {
+            playVictory3();
+          }, 1500);
+
+          setTimeout(() => {
+            playVictory4();
+          }, 2000);
+        }
+      }
+      if (mode === "Story") {
+        setLevel(12);
+      }
     }
     setActionText(update[1]);
     setNewBoard(boardRef.current);

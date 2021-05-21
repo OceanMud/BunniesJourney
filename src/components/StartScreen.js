@@ -9,7 +9,9 @@ const StartScreen = () => {
   const { setPlayer } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { setDifficulty } = useContext(UserContext);
+  const { setMode } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
+
   const { setHeaderToggles } = useContext(UserContext);
   const { sound } = useContext(UserContext);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
@@ -53,7 +55,7 @@ const StartScreen = () => {
           }}
           onClick={() => {
             setLevel(1);
-            setDifficulty("easy");
+            setMode("Story");
           }}
         >
           Story Mode
@@ -66,6 +68,11 @@ const StartScreen = () => {
             if (sound) {
               playbuttonHover();
             }
+          }}
+          onClick={() => {
+            setLevel(1);
+            setMode("Endless");
+            setDifficulty("Easy");
           }}
           class="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >

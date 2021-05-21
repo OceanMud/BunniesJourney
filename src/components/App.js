@@ -17,6 +17,7 @@ import "../styles/App.css";
 
 function App() {
   const { level, setLevel } = useContext(UserContext);
+
   const { setNewBoard } = useContext(UserContext);
   const { score } = useContext(UserContext);
   const { makeBoard, setMakeBoard } = useContext(UserContext);
@@ -119,19 +120,25 @@ function App() {
             />
 
             <img
-              onClick={() => toggleLeaderboard()}
+              onClick={() => {
+                !initScreen && toggleLeaderboard();
+              }}
               src="/images/trophy.svg"
               className=" cursor-pointer absolute opacity-80  bottom-1 right-2 h-5  "
             />
 
             <img
-              onClick={() => toggleInfo()}
+              onClick={() => {
+                !initScreen && toggleInfo();
+              }}
               src="/images/info.svg"
               className=" cursor-pointer absolute opacity-80  bottom-1 right-8 h-5  "
             />
 
             <img
-              onClick={() => toggleSettings()}
+              onClick={() => {
+                !initScreen && toggleSettings();
+              }}
               src="/images/settings.svg"
               className=" cursor-pointer absolute opacity-80  bottom-1 right-14 h-5  "
             />

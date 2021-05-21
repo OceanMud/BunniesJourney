@@ -94,7 +94,7 @@ export let monstersCave = [
   },
 ];
 
-export let monstersHell = [
+export let monstersAbyss = [
   {
     name: "Brineling",
     attack: 3,
@@ -155,9 +155,9 @@ export const monsterShuffle = () => {
     .map((a) => a.value);
   monstersCave = monsterShuffle2;
 
-  let monsterShuffle3 = monstersHell
+  let monsterShuffle3 = monstersAbyss
     .map((a) => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)
     .map((a) => a.value);
-  monstersHell = monsterShuffle3;
+  monstersAbyss = monsterShuffle3;
 };

@@ -17,15 +17,21 @@ const Context = () => {
     "Shield",
     "Antidote",
   ]);
-
+  const [enemy, setEnemy] = useState("");
+  const [highScoreCount, setHighScoreCount] = useState({
+    enemy: 0,
+    potion: 0,
+    level: 0,
+  });
   const [makeBoard, setMakeBoard] = useState(0);
   const [initScreen, setInitScreen] = useState(true);
   const [sound, setSound] = useState(false);
   const [music, setMusic] = useState(false);
   const [actionText, setActionText] = useState("Welcome to Bunnies Journey!");
   const [hero, setHero] = useState("images/icons/main/1.png");
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState("Easy");
   const [score, setScore] = useState(0);
+  const [mode, setMode] = useState("Story");
   const [headerToggles, setHeaderToggles] = useState({
     info: false,
     leaderboard: false,
@@ -43,6 +49,12 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          highScoreCount,
+          setHighScoreCount,
+          enemy,
+          setEnemy,
+          mode,
+          setMode,
           initScreen,
           setInitScreen,
           sound,

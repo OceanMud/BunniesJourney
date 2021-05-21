@@ -1,6 +1,16 @@
 import React, { useEffect, useContext } from "react";
 import UserContext from "./UserContext";
-import { monstersField, monstersCave, monstersHell } from "./monsters";
+import { monstersField, monstersCave, monstersAbyss } from "./monsters";
+
+import {
+  endlessMonstersCave,
+  endlessMonstersCrystalsCave,
+  endlessMonstersField,
+  endlessMonstersAbyss,
+  endlessMonstersIceCave,
+  endlessMonstersRuin,
+  endlessMonstersTundra,
+} from "./endlessMonsters";
 
 import currentBoardDrawnImages from "./currentBoardDrawnImages";
 
@@ -8,17 +18,46 @@ const CurrentBoardDrawn = ({ tile, index }) => {
   const { background } = useContext(UserContext);
   const { hero } = useContext(UserContext);
   const { player } = useContext(UserContext);
+  const { enemy } = useContext(UserContext);
+  const { mode } = useContext(UserContext);
   const { level } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
 
-  let enemy = monstersField;
+  let drawEnemy = monstersField;
 
-  if (level >= 1 && level < 3) {
-    enemy = monstersField;
-  } else if (level >= 3 && level < 7) {
-    enemy = monstersCave;
-  } else if (level >= 7 && level < 10) {
-    enemy = monstersHell;
+  if (mode === "Story") {
+    if (level >= 1 && level < 3) {
+      drawEnemy = monstersField;
+    } else if (level >= 3 && level < 7) {
+      drawEnemy = monstersCave;
+    } else if (level >= 7 && level < 10) {
+      drawEnemy = monstersAbyss;
+    }
+  }
+
+  if (mode === "Endless") {
+    if (enemy === "Cave") {
+      drawEnemy = endlessMonstersCave;
+    }
+
+    if (enemy === "CrystalCave") {
+      drawEnemy = endlessMonstersCrystalsCave;
+    }
+    if (enemy === "Field") {
+      drawEnemy = endlessMonstersField;
+    }
+    if (enemy === "Abyss") {
+      drawEnemy = endlessMonstersAbyss;
+    }
+    if (enemy === "IceCave") {
+      drawEnemy = endlessMonstersIceCave;
+    }
+    if (enemy === "Ruin") {
+      drawEnemy = endlessMonstersRuin;
+    }
+    if (enemy === "Tundra") {
+      drawEnemy = endlessMonstersTundra;
+    }
   }
 
   useEffect(() => {
@@ -26,8 +65,6 @@ const CurrentBoardDrawn = ({ tile, index }) => {
   }, []);
 
   const actionLogic = (tile) => {
-    console.log(tile);
-
     if (tile === "Hero") {
       setActionText("The Hero! ");
     }
@@ -93,7 +130,7 @@ const CurrentBoardDrawn = ({ tile, index }) => {
 
           {image.tile === "Monster" ? (
             <p className="w-14 absolute z-10 shadow-2xl left-11 top-0 ">
-              {enemy[index].attack}
+              {drawEnemy[index].attack}
             </p>
           ) : undefined}
         </div>

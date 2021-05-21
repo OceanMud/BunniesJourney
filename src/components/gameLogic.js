@@ -1,17 +1,54 @@
 import determineMove from "./determineMove";
-import { monstersField, monstersCave, monstersHell } from "./monsters";
+import { monstersField, monstersCave, monstersAbyss } from "./monsters";
+import {
+  endlessMonstersCave,
+  endlessMonstersCrystalsCave,
+  endlessMonstersField,
+  endlessMonstersAbyss,
+  endlessMonstersIceCave,
+  endlessMonstersRuin,
+  endlessMonstersTundra,
+} from "./endlessMonsters";
 
-const checkStatus = (tile, player, index, level, score) => {
+const checkStatus = (tile, player, index, level, score, mode, enemy) => {
   let monsterImg = "";
   let updatePlayer = player;
   let text = "";
   let newScore = score;
-  if (level >= 1 && level < 3) {
-    monsterImg = monstersField;
-  } else if (level >= 3 && level < 7) {
-    monsterImg = monstersCave;
-  } else if (level >= 7 && level < 10) {
-    monsterImg = monstersHell;
+
+  if (mode === "Story") {
+    if (level >= 1 && level < 3) {
+      monsterImg = monstersField;
+    } else if (level >= 3 && level < 7) {
+      monsterImg = monstersCave;
+    } else if (level >= 7 && level < 10) {
+      monsterImg = monstersAbyss;
+    }
+  }
+
+  if (mode === "Endless") {
+    if (enemy === "Cave") {
+      monsterImg = endlessMonstersCave;
+    }
+
+    if (enemy === "CrystalCave") {
+      monsterImg = endlessMonstersCrystalsCave;
+    }
+    if (enemy === "Field") {
+      monsterImg = endlessMonstersField;
+    }
+    if (enemy === "Abyss") {
+      monsterImg = endlessMonstersAbyss;
+    }
+    if (enemy === "IceCave") {
+      monsterImg = endlessMonstersIceCave;
+    }
+    if (enemy === "Ruin") {
+      monsterImg = endlessMonstersRuin;
+    }
+    if (enemy === "Tundra") {
+      monsterImg = endlessMonstersTundra;
+    }
   }
 
   if (tile === "Monster") {
@@ -121,22 +158,20 @@ const checkStatus = (tile, player, index, level, score) => {
 
     document.getElementById(index).style.visibility = "hidden";
   }
-  console.log("Processing Score", newScore);
+
   return [updatePlayer, text, newScore];
 };
 
-const gameLogic = (tile, index, boardRef, player, level, score) => {
-  // const verifyPlayer = {
-  //   hp: player[0],
-  //   poisoned: player[1],
-  //   protected: player[2],
-  //   color: player[3],
-  // };
-
-  // player = { ...verifyPlayer };
-  // console.log("verifyPlayer", verifyPlayer[0]);
-  // console.log("game Logic", player);
-
+const gameLogic = (
+  tile,
+  index,
+  boardRef,
+  player,
+  level,
+  score,
+  mode,
+  enemy
+) => {
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
 
@@ -145,16 +180,14 @@ const gameLogic = (tile, index, boardRef, player, level, score) => {
   }
 
   if (validMove) {
-    const update = checkStatus(tile, player, index, level, score);
+    const update = checkStatus(tile, player, index, level, score, mode, enemy);
 
     let move = boardRef;
     move.splice(newMove, 1, "");
     move.splice(index, 1, "Hero");
     boardRef = move;
-    // console.log("move", boardRef);
-    // console.log("test", boardRef[index]);
 
-    console.log([...update, boardRef]);
+    // console.log([...update, boardRef]);
     return [...update, boardRef];
   }
 };

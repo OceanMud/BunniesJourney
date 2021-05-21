@@ -13,7 +13,7 @@ const currentBoardDrawnImages = [
   {
     tile: "Monster",
     alt: "Monster",
-    src: "enemy[index].img",
+    src: "drawEnemy[index].img",
     special: true,
   },
   {
@@ -52,6 +52,12 @@ const currentBoardDrawnImages = [
     tile: "Amulet",
     alt: "Amulet",
     src: "/images/icons/amulet.png",
+  },
+
+  {
+    tile: "Sign",
+    alt: "Sign",
+    src: "/images/icons/sign.png",
   },
 ];
 

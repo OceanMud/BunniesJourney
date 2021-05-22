@@ -7,8 +7,10 @@ import { determineBackground } from "./determineBackground";
 const CreateBoard = () => {
   const { level } = useContext(UserContext);
   const { setBackground } = useContext(UserContext);
+  const { hero } = useContext(UserContext);
+
   const { setEnemy } = useContext(UserContext);
-  const { setPlayer } = useContext(UserContext);
+  const { player, setPlayer } = useContext(UserContext);
   const { mode } = useContext(UserContext);
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
@@ -87,12 +89,39 @@ const CreateBoard = () => {
     subRef.current = shuffled;
     setNewBoard(subRef.current);
 
-    if (level === 1) {
+    if (level === 1 && hero === "images/icons/main/1.png") {
       setPlayer({
         hp: 10,
         poisoned: false,
         protected: false,
         color: "text-black",
+      });
+    }
+
+    if (level === 1 && hero === "images/icons/main/2.png") {
+      setPlayer({
+        hp: 8,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+
+    if (hero === "images/icons/main/3.png") {
+      setPlayer({
+        hp: player.hp,
+        poisoned: false,
+        protected: true,
+        color: "text-yellow-200",
+      });
+    }
+
+    if (level === 1 && hero === "images/icons/main/3.png") {
+      setPlayer({
+        hp: 6,
+        poisoned: false,
+        protected: true,
+        color: "text-yellow-200",
       });
     }
 

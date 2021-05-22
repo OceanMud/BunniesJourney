@@ -10,6 +10,7 @@ import useInitialFocus from "./useInitialFocus";
 const CurrentBoard = () => {
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { player, setPlayer } = useContext(UserContext);
+  const { hero } = useContext(UserContext);
   const { level, setLevel } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
@@ -108,7 +109,8 @@ const CurrentBoard = () => {
       level,
       score,
       mode,
-      enemy
+      enemy,
+      hero
     );
 
     if (!update) {

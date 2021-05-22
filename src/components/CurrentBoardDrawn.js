@@ -111,7 +111,12 @@ const CurrentBoardDrawn = ({ tile, index }) => {
             className=" w-14 absolute z-30 shadow-2xl left-6 top-6"
           />
           <p
-            className={`w-14 absolute z-30 left-10 shadow-2xl top-0 ${player.color}  `}
+            className={`w-14 absolute z-30 ${
+              hero === "images/icons/main/2.png" ||
+              hero === "images/icons/main/3.png"
+                ? "left-11"
+                : "left-10"
+            } left-10 shadow-2xl top-0 ${player.color}  `}
           >
             {player.hp}
           </p>

@@ -11,6 +11,7 @@ const StartScreen = () => {
   const { setDifficulty } = useContext(UserContext);
   const { setMode } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
+  const { setHighScoreCount } = useContext(UserContext);
 
   const { setHeaderToggles } = useContext(UserContext);
   const { sound } = useContext(UserContext);
@@ -39,6 +40,35 @@ const StartScreen = () => {
     return () => {};
   }, []);
 
+  const resetCharacter = () => {
+    if (hero === "images/icons/main/3.png") {
+      setPlayer({
+        hp: 6,
+        poisoned: false,
+        protected: true,
+        color: "text-yellow-200",
+      });
+    }
+
+    if (hero === "images/icons/main/2.png") {
+      setPlayer({
+        hp: 8,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+
+    if (hero === "images/icons/main/1.png") {
+      setPlayer({
+        hp: 10,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+  };
+
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
@@ -54,8 +84,14 @@ const StartScreen = () => {
             }
           }}
           onClick={() => {
+            resetCharacter();
             setLevel(1);
             setMode("Story");
+            setHighScoreCount({
+              enemy: 0,
+              potion: 0,
+              level: 0,
+            });
           }}
         >
           Story Mode
@@ -70,9 +106,15 @@ const StartScreen = () => {
             }
           }}
           onClick={() => {
+            resetCharacter();
             setLevel(1);
             setMode("Endless");
             setDifficulty("Easy");
+            setHighScoreCount({
+              enemy: 0,
+              potion: 0,
+              level: 0,
+            });
           }}
           className="focus:outline-none opacity-90 shadow-2xl w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >
@@ -104,6 +146,43 @@ const StartScreen = () => {
         alt="main"
         src={hero}
         className="absolute top-44 right-28  h-16 cursor-pointer "
+        onClick={() =>
+          setHeaderToggles({
+            info: false,
+            leaderboard: false,
+            settings: false,
+            heros: true,
+          })
+        }
+      />
+      <img
+        alt="left arrow"
+        src="images/leftarrow.svg"
+        className="absolute left-8 opacity-80 bottom-10 hover:-translate-x-2 transform transition ease-in-out   h-16  cursor-pointer"
+        onMouseEnter={() => {
+          if (sound) {
+            playbuttonHover();
+          }
+        }}
+        onClick={() =>
+          setHeaderToggles({
+            info: false,
+            leaderboard: false,
+            settings: false,
+            heros: true,
+          })
+        }
+      />
+
+      <img
+        alt="right arrow"
+        src="images/rightarrow.svg"
+        className="absolute bottom-10 opacity-80 left-44 h-16  hover:opacity-100  hover:translate-x-2 transform transition ease-in-out cursor-pointer"
+        onMouseEnter={() => {
+          if (sound) {
+            playbuttonHover();
+          }
+        }}
         onClick={() =>
           setHeaderToggles({
             info: false,

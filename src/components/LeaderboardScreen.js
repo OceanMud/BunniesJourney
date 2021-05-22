@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 const LeaderboardScreen = () => {
   const { sound } = useContext(UserContext);
+  const { setActionText } = useContext(UserContext);
   const { level, setLevel } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
@@ -12,6 +13,13 @@ const LeaderboardScreen = () => {
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
     volume: 0.3,
   });
+
+  useEffect(() => {
+    setActionText("The Top 10 of Bunnies Journey!!!");
+
+    return () => {};
+  });
+
   return (
     <div className="relative">
       <img alt="background" src="images/background.jpg" className="h-72" />
@@ -51,6 +59,7 @@ const LeaderboardScreen = () => {
                   leaderboard: false,
                   settings: false,
                   heros: false,
+                  credits: false,
                 });
               }}
               className=" focus:outline-none  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded"
@@ -75,6 +84,7 @@ const LeaderboardScreen = () => {
                 leaderboard: false,
                 settings: false,
                 heros: false,
+                credits: false,
               });
               setScore(0);
               setLevel(0);

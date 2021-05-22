@@ -6,6 +6,7 @@ const VictoryScreen = () => {
   const { setActionText } = useContext(UserContext);
   const { mode } = useContext(UserContext);
 
+  const { hero } = useContext(UserContext);
   const { player, setPlayer } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
@@ -50,11 +51,19 @@ const VictoryScreen = () => {
       setButtonScore(true);
     }, 3000);
 
-    setActionText(
-      "You Smash the Amulet and lift the curse of The Bunny Kingdom!"
-    );
-
     const localScore = JSON.parse(localStorage.getItem("score"));
+
+    if (mode === "Story") {
+      setActionText(
+        "You Smash the Amulet and lift the curse of The Bunny Kingdom!"
+      );
+    }
+
+    if (mode === "Endless") {
+      setActionText(
+        "This journey has come to an end... and so the next  begins!"
+      );
+    }
 
     if (!localScore) {
       localStorage.setItem("score", JSON.stringify(subRef.current));
@@ -65,18 +74,38 @@ const VictoryScreen = () => {
       }
     }
 
-    setPlayer({
-      hp: 10,
-      poisoned: false,
-      protected: false,
-      color: "text-black",
-    });
+    if (hero === "images/icons/main/1.png") {
+      setPlayer({
+        hp: 10,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+
+    if (hero === "images/icons/main/2.png") {
+      setPlayer({
+        hp: 8,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+
+    if (hero === "images/icons/main/3.png") {
+      setPlayer({
+        hp: 6,
+        poisoned: false,
+        protected: true,
+        color: "text-yellow-200",
+      });
+    }
 
     return () => {};
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <img alt="background" src="images/background.jpg" className="h-72" />
 
       <div className="absolute top-2 left-7">
@@ -96,7 +125,7 @@ const VictoryScreen = () => {
                 ) : undefined}
 
                 {finalScore ? (
-                  <p className="mt-2  pb-2 border-b-4 bg-opacity-70 border-opacity-70 border-yellow-300 h-full bg-yellow-300 pt-2 text-center -ml-1  ">
+                  <p className="mt-3  pb-2 align-top border-b-4 bg-opacity-70 border-opacity-70 border-yellow-300 h-full bg-yellow-300 pt-2 text-center -ml-1  ">
                     Final Score: {subRef.current}
                   </p>
                 ) : undefined}
@@ -112,6 +141,7 @@ const VictoryScreen = () => {
                       leaderboard: true,
                       settings: false,
                       heros: false,
+                      credits: false,
                     });
                   }}
                 >
@@ -154,6 +184,7 @@ const VictoryScreen = () => {
           <div className=" -ml-5 space-x-1 ">
             <button
               onMouseEnter={() => {
+                setActionText("Start a new journey");
                 if (sound) {
                   playbuttonHover();
                 }
@@ -164,6 +195,7 @@ const VictoryScreen = () => {
                   potion: 0,
                   level: 0,
                 });
+                setDisableHs(false);
                 setScore(0);
                 setLevel(1);
                 setMakeBoard(0);
@@ -177,12 +209,15 @@ const VictoryScreen = () => {
             {!disableHs && (
               <button
                 onMouseEnter={() => {
+                  setActionText(
+                    "Become a legend by reaching the top of the leaderboard! "
+                  );
                   if (sound) {
                     playbuttonHover();
                   }
                 }}
                 onClick={() => {
-                  setDisableHs(false);
+                  setDisableHs(true);
                   setSubmitScore(true);
                 }}
                 className="mt-2  bg-yellow-300 hover:bg-yellow-500 font-bold py-4 px-5 border-2 border-yellow-400 rounded"
@@ -192,6 +227,7 @@ const VictoryScreen = () => {
             )}
             <button
               onMouseEnter={() => {
+                setActionText("Return to the main menu");
                 if (sound) {
                   playbuttonHover();
                 }

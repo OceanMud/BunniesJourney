@@ -1,23 +1,135 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 
 const HerosScreen = () => {
   const { setHeaderToggles } = useContext(UserContext);
+  const { setActionText } = useContext(UserContext);
   const { sound } = useContext(UserContext);
   const { setHero } = useContext(UserContext);
+  const [newHero, setNewHero] = useState(1);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
     volume: 0.3,
   });
+
+  const heroLogic = (direction) => {
+    if (newHero === 1 && direction === "Forward") {
+      setActionText("Bowser pushes past any obstacle!");
+      setNewHero(2);
+    } else if (newHero === 1 && direction === "Backward") {
+      setActionText("Petey is all about safety !");
+      setNewHero(3);
+    } else if (newHero === 2 && direction === "Forward") {
+      setActionText("Petey is all about safety!");
+      setNewHero(3);
+    } else if (newHero === 2 && direction === "Backward") {
+      setActionText("Max is the worlds bravest bunny!");
+      setNewHero(1);
+    } else if (newHero === 3 && direction === "Forward") {
+      setActionText("Max is the worlds bravest bunny!");
+      setNewHero(1);
+    } else if (newHero === 3 && direction === "Backward") {
+      setActionText("Bowser pushes past any obstacle!");
+      setNewHero(2);
+    }
+  };
   return (
-    <div className="relative">
+    <div className="relative ">
       <img alt="background" src="images/background.jpg" className="h-72" />
+      <div className="absolute top-2 left-7 ">
+        <div className=" h-48 w-56  text-lg  border-gray-800 bg-gray-200 bg-opacity-60 text-center text-gray-900 border-double shadow-2xl  border-8 space-y-1">
+          {newHero === 1 ? (
+            <p>Max </p>
+          ) : newHero === 2 ? (
+            <p>Bowser</p>
+          ) : (
+            <p>Petey</p>
+          )}
+          {newHero === 1 ? (
+            <p>HP: 10</p>
+          ) : newHero === 2 ? (
+            <p>HP: 8</p>
+          ) : (
+            <p>HP: 6</p>
+          )}
+
+          {newHero === 1 ? (
+            <p> Perk: None</p>
+          ) : newHero === 2 ? (
+            <p>
+              Perk: <span className="text-green-700">Poison Immunity</span>
+            </p>
+          ) : (
+            <p>
+              Perk: <span className="text-yellow-600">Shield Every Level</span>
+            </p>
+          )}
+          <p></p>
+          <img
+            alt="left arrow"
+            src="images/leftarrow.svg"
+            className="absolute bottom-1 hover:-translate-x-2 transform transition ease-in-out  left-2 h-16  cursor-pointer"
+            onMouseEnter={() => {
+              if (sound) {
+                playbuttonHover();
+              }
+            }}
+            onClick={() => heroLogic("Backward")}
+          />
+
+          <img
+            alt="right arrow"
+            src="images/rightarrow.svg"
+            className="absolute bottom-1 left-36 h-16  hover:opacity-100  hover:translate-x-2 transform transition ease-in-out cursor-pointer"
+            onMouseEnter={() => {
+              if (sound) {
+                playbuttonHover();
+              }
+            }}
+            onClick={() => heroLogic("Forward")}
+          />
+        </div>
+
+        <button
+          onMouseEnter={() => {
+            if (sound) {
+              playbuttonHover();
+            }
+          }}
+          onClick={() => {
+            setHero(`images/icons/main/${newHero}.png`);
+            setHeaderToggles({
+              info: false,
+              leaderboard: false,
+              settings: false,
+              heros: false,
+              credits: false,
+            });
+          }}
+          class="focus:outline-none shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10  border-2 absolute border-green-700 rounded mt-6 hover:border-green-900 "
+        >
+          <img className=" opacity-80 ml-12 h-10 " src="images/check.svg" />
+        </button>
+      </div>
+
       <img
+        alt="person2"
+        src={
+          newHero === 1
+            ? "images/icons/main/1.png"
+            : newHero === 2
+            ? "images/icons/main/2.png"
+            : "images/icons/main/3.png"
+        }
+        className="absolute top-32 right-28 h-16"
+      />
+
+      {/* <img
         alt="title"
         src="images/TitlePick.png"
         className="absolute top-10 left-1 h-14"
-      />{" "}
-      <div
+      /> */}
+      {/* <div
         className="group "
         onClick={() => {
           setHero("images/icons/main/1.png");
@@ -26,6 +138,7 @@ const HerosScreen = () => {
             leaderboard: false,
             settings: false,
             heros: false,
+            credits: false,
           });
         }}
         onMouseEnter={() => {
@@ -42,7 +155,7 @@ const HerosScreen = () => {
         <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-6 h-16 cursor-pointer">
           Max
         </p>
-      </div>
+      </div> */}
       <div
         className="group -space-x-1"
         onClick={() => {
@@ -52,24 +165,20 @@ const HerosScreen = () => {
             leaderboard: false,
             settings: false,
             heros: false,
+            credits: false,
           });
         }}
-        onMouseEnter={() => {
-          if (sound) {
-            playbuttonHover();
-          }
-        }}
+        // onMouseEnter={() => {
+        //   if (sound) {
+        //     playbuttonHover();
+        //   }
+        // }}
       >
-        <img
-          alt="person2"
-          src="images/icons/main/2.png"
-          className="absolute top-44 left-28 h-16 cursor-pointer"
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36  left-28 h-16 cursor-pointer">
+        {/* <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36  left-28 h-16 cursor-pointer">
           Bowser
-        </p>
+        </p> */}
       </div>
-      <div
+      {/* <div
         className="group space-x-2"
         onClick={() => {
           setHero("images/icons/main/3.png");
@@ -78,6 +187,7 @@ const HerosScreen = () => {
             leaderboard: false,
             settings: false,
             heros: false,
+            credits: false,
           });
         }}
         onMouseEnter={() => {
@@ -94,7 +204,7 @@ const HerosScreen = () => {
         <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-52 h-16 cursor-pointer">
           Petey
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

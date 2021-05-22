@@ -10,7 +10,7 @@ import {
   endlessMonstersTundra,
 } from "./endlessMonsters";
 
-const checkStatus = (tile, player, index, level, score, mode, enemy) => {
+const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
   let monsterImg = "";
   let updatePlayer = player;
   let text = "";
@@ -105,17 +105,34 @@ const checkStatus = (tile, player, index, level, score, mode, enemy) => {
     text = "You feel healthy";
 
     if (player.poisoned) {
-      updatePlayer = [9, player.poisoned, player.protected, player.color];
+      if (hero === "images/icons/main/1.png") {
+        updatePlayer = [9, player.poisoned, player.protected, player.color];
+      }
+      if (hero === "images/icons/main/3.png") {
+        updatePlayer = [5, player.poisoned, player.protected, player.color];
+      }
     } else {
-      updatePlayer = [10, player.poisoned, player.protected, player.color];
+      if (hero === "images/icons/main/1.png") {
+        updatePlayer = [10, player.poisoned, player.protected, player.color];
+      }
+      if (hero === "images/icons/main/2.png") {
+        updatePlayer = [8, player.poisoned, player.protected, player.color];
+      }
+      if (hero === "images/icons/main/3.png") {
+        updatePlayer = [6, player.poisoned, player.protected, player.color];
+      }
     }
 
     document.getElementById(index).style.visibility = "hidden";
   }
 
   if (tile === "Antidote") {
-    text = "You are cured";
-
+    text = "The Antidote had no effect";
+    if (hero !== "images/icons/main/2.png") {
+      if (player.poisoned) {
+        text = "You are cured";
+      }
+    }
     let checkProtected = player.protected;
 
     if (checkProtected) {
@@ -130,15 +147,18 @@ const checkStatus = (tile, player, index, level, score, mode, enemy) => {
   }
 
   if (tile === "Poison") {
-    text = "You feel sick";
+    text = "This Poison tastes pretty good!";
+    updatePlayer = [player.hp, false, player.protected, player.color];
+    if (hero !== "images/icons/main/2.png") {
+      text = "You feel sick";
 
-    if (player.protected) {
-      updatePlayer = [player.hp, true, false, "text-green-700"];
-      text = "You feel sick. You feel less protected";
-    } else {
-      updatePlayer = [player.hp - 1, true, false, "text-green-700"];
+      if (player.protected) {
+        updatePlayer = [player.hp, true, false, "text-green-700"];
+        text = "You feel sick. You feel less protected";
+      } else {
+        updatePlayer = [player.hp - 1, true, false, "text-green-700"];
+      }
     }
-
     document.getElementById(index).style.visibility = "hidden";
   }
 
@@ -170,7 +190,8 @@ const gameLogic = (
   level,
   score,
   mode,
-  enemy
+  enemy,
+  hero
 ) => {
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
@@ -180,7 +201,16 @@ const gameLogic = (
   }
 
   if (validMove) {
-    const update = checkStatus(tile, player, index, level, score, mode, enemy);
+    const update = checkStatus(
+      tile,
+      player,
+      index,
+      level,
+      score,
+      mode,
+      enemy,
+      hero
+    );
 
     let move = boardRef;
     move.splice(newMove, 1, "");

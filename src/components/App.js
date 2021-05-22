@@ -10,6 +10,7 @@ import InfoScreen from "./InfoScreen";
 import SettingsScreen from "./SettingsScreen";
 import HerosScreen from "./HerosScreen";
 import InitScreen from "./InitScreen";
+import CreditsScreen from "./CreditsScreen";
 
 import ReactAudioPlayer from "react-audio-player";
 
@@ -38,6 +39,7 @@ function App() {
         leaderboard: false,
         settings: false,
         heros: false,
+        credits: false,
       });
     } else {
       setHeaderToggles({
@@ -45,6 +47,7 @@ function App() {
         leaderboard: false,
         settings: false,
         heros: false,
+        credits: false,
       });
     }
   };
@@ -56,6 +59,7 @@ function App() {
         leaderboard: false,
         settings: false,
         heros: false,
+        credits: false,
       });
     } else {
       setHeaderToggles({
@@ -63,6 +67,7 @@ function App() {
         leaderboard: true,
         settings: false,
         heros: false,
+        credits: false,
       });
     }
   };
@@ -74,6 +79,7 @@ function App() {
         leaderboard: false,
         settings: false,
         heros: false,
+        credits: false,
       });
     } else {
       setHeaderToggles({
@@ -81,6 +87,7 @@ function App() {
         leaderboard: false,
         settings: true,
         heros: false,
+        credits: false,
       });
     }
   };
@@ -170,6 +177,8 @@ function App() {
             <SettingsScreen />
           ) : headerToggles.heros ? (
             <HerosScreen />
+          ) : headerToggles.credits ? (
+            <CreditsScreen />
           ) : level === 0 ? (
             <StartScreen />
           ) : level === 10 ? (

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 
@@ -6,11 +6,20 @@ const HerosScreen = () => {
   const { setHeaderToggles } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
   const { sound } = useContext(UserContext);
-  const { setHero } = useContext(UserContext);
+  const { hero, setHero } = useContext(UserContext);
   const [newHero, setNewHero] = useState(1);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
     volume: 0.3,
   });
+
+  useEffect(() => {
+    if (hero === "images/icons/main/2.png") {
+      setNewHero(2);
+    }
+    if (hero === "images/icons/main/3.png") {
+      setNewHero(3);
+    }
+  }, []);
 
   const heroLogic = (direction) => {
     if (newHero === 1 && direction === "Forward") {
@@ -48,20 +57,22 @@ const HerosScreen = () => {
           {newHero === 1 ? (
             <p>HP: 10</p>
           ) : newHero === 2 ? (
-            <p>HP: 8</p>
-          ) : (
             <p>HP: 6</p>
+          ) : (
+            <p>HP: 4</p>
           )}
 
           {newHero === 1 ? (
-            <p> Perk: None</p>
+            <p> Is A Cute Bunny</p>
           ) : newHero === 2 ? (
             <p>
-              Perk: <span className="text-green-700">Poison Immunity</span>
+              <span className="text-green-700">Poison Immunity</span>
             </p>
           ) : (
             <p>
-              Perk: <span className="text-yellow-600">Shield Every Level</span>
+              <span className="text-yellow-600">
+                Refreshes With Shield Every Level
+              </span>
             </p>
           )}
           <p></p>
@@ -108,7 +119,11 @@ const HerosScreen = () => {
           }}
           class="focus:outline-none shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10  border-2 absolute border-green-700 rounded mt-6 hover:border-green-900 "
         >
-          <img className=" opacity-80 ml-12 h-10 " src="images/check.svg" />
+          <img
+            alt="checkmark"
+            className=" opacity-80 ml-12 h-10 "
+            src="images/check.svg"
+          />
         </button>
       </div>
 
@@ -124,38 +139,6 @@ const HerosScreen = () => {
         className="absolute top-32 right-28 h-16"
       />
 
-      {/* <img
-        alt="title"
-        src="images/TitlePick.png"
-        className="absolute top-10 left-1 h-14"
-      /> */}
-      {/* <div
-        className="group "
-        onClick={() => {
-          setHero("images/icons/main/1.png");
-          setHeaderToggles({
-            info: false,
-            leaderboard: false,
-            settings: false,
-            heros: false,
-            credits: false,
-          });
-        }}
-        onMouseEnter={() => {
-          if (sound) {
-            playbuttonHover();
-          }
-        }}
-      >
-        <img
-          alt="main"
-          src="images/icons/main/1.png"
-          className="absolute top-44 left-4 h-16 cursor-pointer "
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-6 h-16 cursor-pointer">
-          Max
-        </p>
-      </div> */}
       <div
         className="group -space-x-1"
         onClick={() => {
@@ -168,43 +151,7 @@ const HerosScreen = () => {
             credits: false,
           });
         }}
-        // onMouseEnter={() => {
-        //   if (sound) {
-        //     playbuttonHover();
-        //   }
-        // }}
-      >
-        {/* <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36  left-28 h-16 cursor-pointer">
-          Bowser
-        </p> */}
-      </div>
-      {/* <div
-        className="group space-x-2"
-        onClick={() => {
-          setHero("images/icons/main/3.png");
-          setHeaderToggles({
-            info: false,
-            leaderboard: false,
-            settings: false,
-            heros: false,
-            credits: false,
-          });
-        }}
-        onMouseEnter={() => {
-          if (sound) {
-            playbuttonHover();
-          }
-        }}
-      >
-        <img
-          alt="person3"
-          src="images/icons/main/3.png"
-          className="absolute top-44 left-52 h-16 cursor-pointer"
-        />
-        <p className=" group-hover:text-yellow-600  text-gray-800 absolute top-36 left-52 h-16 cursor-pointer">
-          Petey
-        </p>
-      </div> */}
+      ></div>
     </div>
   );
 };

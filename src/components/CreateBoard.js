@@ -100,7 +100,7 @@ const CreateBoard = () => {
 
     if (level === 1 && hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 8,
+        hp: 6,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -109,21 +109,21 @@ const CreateBoard = () => {
 
     if (hero === "images/icons/main/3.png") {
       setPlayer({
-        hp: player.hp,
+        hp: 4,
         poisoned: false,
         protected: true,
         color: "text-yellow-200",
       });
     }
 
-    if (level === 1 && hero === "images/icons/main/3.png") {
-      setPlayer({
-        hp: 6,
-        poisoned: false,
-        protected: true,
-        color: "text-yellow-200",
-      });
-    }
+    // if (level === 1 && hero === "images/icons/main/3.png") {
+    //   setPlayer({
+    //     hp: 6,
+    //     poisoned: false,
+    //     protected: true,
+    //     color: "text-yellow-200",
+    //   });
+    // }
 
     setMakeBoard(1);
     return () => {};

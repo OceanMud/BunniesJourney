@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
+import { getLeaderBoard } from "./utils";
 
 const StartScreen = () => {
   const { setActionText } = useContext(UserContext);
@@ -12,7 +13,7 @@ const StartScreen = () => {
   const { setMode } = useContext(UserContext);
   const { score, setScore } = useContext(UserContext);
   const { setHighScoreCount } = useContext(UserContext);
-
+  const { setLeaderboard } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
   const { sound } = useContext(UserContext);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
@@ -43,7 +44,7 @@ const StartScreen = () => {
   const resetCharacter = () => {
     if (hero === "images/icons/main/3.png") {
       setPlayer({
-        hp: 6,
+        hp: 4,
         poisoned: false,
         protected: true,
         color: "text-yellow-200",
@@ -52,7 +53,7 @@ const StartScreen = () => {
 
     if (hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 8,
+        hp: 6,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -67,6 +68,24 @@ const StartScreen = () => {
         color: "text-black",
       });
     }
+  };
+
+  const fetchLeaderboard = () => {
+    const results = async () => await getLeaderBoard();
+
+    results()
+      .then((result) => {
+        setLeaderboard(result.data);
+        setHeaderToggles({
+          info: false,
+          leaderboard: true,
+          settings: false,
+          heros: false,
+        });
+      })
+      .catch((e) => {
+        console.log("error");
+      });
   };
 
   return (
@@ -122,14 +141,9 @@ const StartScreen = () => {
         </button>
         <button
           className="focus:outline-none opacity-90 shadow-2xl w-full bg-yellow-300 hover:bg-yellow-500 text-white font-bold  px-10 border border-b-2  border-yellow-500 rounded"
-          onClick={() =>
-            setHeaderToggles({
-              info: false,
-              leaderboard: true,
-              settings: false,
-              heros: false,
-            })
-          }
+          onClick={() => {
+            fetchLeaderboard();
+          }}
           onMouseEnter={() => {
             setActionText(
               "Become a legend by reaching the top of the leaderboards!"
@@ -139,7 +153,11 @@ const StartScreen = () => {
             }
           }}
         >
-          <img className=" ml-12  opacity-80  h-10 " src="images/trophy.svg" />
+          <img
+            alt="trophy"
+            className=" ml-12  opacity-80  h-10 "
+            src="images/trophy.svg"
+          />
         </button>
       </div>
       <img

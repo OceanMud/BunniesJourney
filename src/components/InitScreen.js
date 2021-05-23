@@ -1,15 +1,21 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 
 const InitScreen = () => {
   const { setInitScreen } = useContext(UserContext);
+
+  const [door, setDoor] = useState(false);
+
   const { music, setMusic } = useContext(UserContext);
   const { sound, setSound } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
-  const { hero } = useContext(UserContext);
+
   const [playbuttonHover] = useSound("/sounds/buttonhover.mp3", {
     volume: 0.5,
+  });
+  const [playDoor] = useSound("/sounds/door.mp3", {
+    volume: 1,
   });
 
   useEffect(() => {
@@ -19,10 +25,30 @@ const InitScreen = () => {
   });
 
   return (
-    <div className="relative">
-      <img alt="background" src="images/background.jpg" className="h-72" />
+    <div className="relative overflow-hidden">
+      <img
+        alt="background"
+        src="images/intropic.png"
+        className="h-72 absolute"
+      />
+      <div className="flex">
+        <img
+          alt="background"
+          src="images/door.png"
+          className={`${
+            !door ? "translate-x-0" : "-translate-x-36"
+          } transform transition ease-in-out duration-2500 w-36 h-72 `}
+        />
+        <img
+          alt="background"
+          src="images/door.png"
+          className={`${
+            !door ? "translate-x-0" : "translate-x-36"
+          } transform transition ease-in-out duration-2500 w-36 h-72 `}
+        />
+      </div>
 
-      <div className="flex w-40 absolute left-20 space-x-1 top-2">
+      <div id="99" className="flex w-40 absolute right-9 space-x-1 top-2">
         <button
           onMouseEnter={() => {
             if (sound) {
@@ -67,7 +93,10 @@ const InitScreen = () => {
           />
         </button>
       </div>
-      <div className="group absolute top-20  cursor-pointer right-24 h-20 w-24   bg-blue-500 border-2 border-black    bg-opacity-30  hover:bg-opacity-60 shadow-xl">
+      <div
+        className="group absolute top-28  cursor-pointer right-24 h-20 w-20   bg-gray-400 border-4 rounded-full border-black    bg-opacity-60  hover:bg-opacity-80 shadow-xl"
+        id="100"
+      >
         <img
           onMouseEnter={() => {
             if (sound) {
@@ -76,14 +105,23 @@ const InitScreen = () => {
           }}
           alt="title"
           src="images/settingsplay.svg"
-          className="h-20 ml-1 opacity-70 group-hover:opacity-100"
+          className="h-16 ml-1 mt-1 opacity-70 group-hover:opacity-100"
           onClick={() => {
-            setInitScreen(false);
+            document.getElementById(99).style.visibility = "hidden";
+            document.getElementById(100).style.visibility = "hidden";
+            if (sound) {
+              playDoor();
+            }
+
+            setDoor(true);
+            setTimeout(() => {
+              setInitScreen(false);
+            }, 1400);
           }}
         />
       </div>
-
-      <img alt="main" src={hero} className="absolute top-44 right-28  h-16  " />
+      {/* 
+      <img alt="main" src={hero} className="absolute top-44 left-28  h-16  " /> */}
     </div>
   );
 };

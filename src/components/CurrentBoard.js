@@ -129,7 +129,6 @@ const CurrentBoard = () => {
       setHighScoreCount({
         ...newHighScoreCount,
       });
-      console.log(highScoreCount);
     }
 
     if (tile === "Monster") {
@@ -137,7 +136,6 @@ const CurrentBoard = () => {
       setHighScoreCount({
         ...newHighScoreCount,
       });
-      console.log(highScoreCount);
     }
 
     if (tile === "Arrow" || tile === "Cave" || tile === "Sign") {
@@ -145,7 +143,6 @@ const CurrentBoard = () => {
       setHighScoreCount({
         ...newHighScoreCount,
       });
-      console.log(highScoreCount);
     }
 
     if (sound) {
@@ -171,6 +168,10 @@ const CurrentBoard = () => {
       }
 
       if (tile === "Amulet") {
+        setActionText(
+          "You Smash the Amulet and lift the curse of The Bunny Kingdom!"
+        );
+
         if (sound) {
           setTimeout(() => {
             playVictory();
@@ -247,30 +248,25 @@ const CurrentBoard = () => {
         playGameOver();
       }
 
-      if (mode === "Endless") {
-        setDifficulty("Easy");
-        if (sound) {
-          setTimeout(() => {
-            playVictory();
-          }, 500);
+      setDifficulty("Easy");
+      if (sound) {
+        setTimeout(() => {
+          playVictory();
+        }, 500);
 
-          setTimeout(() => {
-            playVictory2();
-          }, 1000);
+        setTimeout(() => {
+          playVictory2();
+        }, 1000);
 
-          setTimeout(() => {
-            playVictory3();
-          }, 1500);
+        setTimeout(() => {
+          playVictory3();
+        }, 1500);
 
-          setTimeout(() => {
-            playVictory4();
-          }, 2000);
-        }
-        setLevel(10);
+        setTimeout(() => {
+          playVictory4();
+        }, 2000);
       }
-      if (mode === "Story") {
-        setLevel(12);
-      }
+      setLevel(10);
     }
     setActionText(update[1]);
     setNewBoard(boardRef.current);

@@ -109,17 +109,17 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
         updatePlayer = [9, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/3.png") {
-        updatePlayer = [5, player.poisoned, player.protected, player.color];
+        updatePlayer = [3, player.poisoned, player.protected, player.color];
       }
     } else {
       if (hero === "images/icons/main/1.png") {
         updatePlayer = [10, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/2.png") {
-        updatePlayer = [8, player.poisoned, player.protected, player.color];
+        updatePlayer = [6, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/3.png") {
-        updatePlayer = [6, player.poisoned, player.protected, player.color];
+        updatePlayer = [4, player.poisoned, player.protected, player.color];
       }
     }
 

@@ -71,7 +71,11 @@ const CreditsScreen = () => {
             }}
             className={` focus:outline-none  mt-2  opacity-95  bg-blue-500 hover:bg-blue-700 font-bold py-3 px-4 border-2 border-blue-700 rounded ml-10`}
           >
-            <img className=" opacity-70 h-10 " src="images/home.svg" />
+            <img
+              alt="home"
+              className=" opacity-70 h-10 "
+              src="images/home.svg"
+            />
           </button>
         </div>
       </div>

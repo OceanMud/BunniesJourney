@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
+
 const LeaderboardScreen = () => {
+  const { leaderboard } = useContext(UserContext);
   const { sound } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
   const { level, setLevel } = useContext(UserContext);
@@ -22,30 +24,34 @@ const LeaderboardScreen = () => {
 
   return (
     <div className="relative">
-      <img alt="background" src="images/background.jpg" className="h-72" />
+      <img
+        alt="background"
+        src="images/background.jpg"
+        className="h-72 opacity-90"
+      />
 
       <div className="absolute top-0">
-        <div className=" text-sm h-72  bg-gray-600 bg-opacity-20 w-72 ">
-          <div className="flex justify-between ml-2 mr-20 text-lg space-x-2">
-            <h3>Name</h3>
-            <h3>Score</h3>
-          </div>
-          <div className="ml-2">
-            <p>1.</p>
-
-            <p>2.</p>
-
-            <p>3.</p>
-            <p>4.</p>
-            <p>5.</p>
-            <p>6.</p>
-            <p>7.</p>
-            <p>8.</p>
-            <p>9.</p>
-            <p>10.</p>
+        <div className=" text-sm h-72   w-72 ">
+          <div className=" h-60 w-64   border-gray-800 bg-gray-200 bg-opacity-60 ml-3 text-gray-900 border-double shadow-2xl  border-8 ">
+            <div className="grid grid-cols-3 text-lg -mt-2 ">
+              <h3 className="ml-2">Name</h3>
+              <h3 className="justify-self-center">Score</h3>
+              <h3 className="justify-self-center">Hero</h3>
+            </div>
+            <div className="ml-2 text-gray-900   ">
+              {leaderboard.map((item, index) => (
+                <div key={index} className="grid grid-cols-3  ">
+                  <p className="">
+                    {index + 1}.{item.owner}
+                  </p>
+                  <p className="justify-self-center">{item.score}</p>
+                  <p className="justify-self-center">{item.hero}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="bottom-0 left-16 absolute  space-x-4">
+        <div className="-bottom-1 left-16 absolute  space-x-4">
           {level !== 0 ? (
             <button
               onMouseEnter={() => {
@@ -62,9 +68,10 @@ const LeaderboardScreen = () => {
                   credits: false,
                 });
               }}
-              className=" focus:outline-none  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded"
+              className=" focus:outline-none  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold  px-2 border-2 border-blue-700 rounded"
             >
               <img
+                alt="play"
                 className=" opacity-70 h-10 "
                 src="images/settingsplay.svg"
               />
@@ -90,11 +97,15 @@ const LeaderboardScreen = () => {
               setLevel(0);
               setMakeBoard(0);
             }}
-            className={` focus:outline-none  mt-2  opacity-95  bg-blue-500 hover:bg-blue-700 font-bold py-2 px-3 border-2 border-blue-700 rounded ${
+            className={` focus:outline-none    opacity-95  bg-blue-500 hover:bg-blue-700 font-bold  px-2 border-2 border-blue-700 rounded ${
               level === 0 && "ml-10"
             } `}
           >
-            <img className=" opacity-70 h-10 " src="images/home.svg" />
+            <img
+              alt="home"
+              className=" opacity-70 h-10 "
+              src="images/home.svg"
+            />
           </button>
         </div>
       </div>

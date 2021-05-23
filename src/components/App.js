@@ -11,6 +11,7 @@ import SettingsScreen from "./SettingsScreen";
 import HerosScreen from "./HerosScreen";
 import InitScreen from "./InitScreen";
 import CreditsScreen from "./CreditsScreen";
+import { getLeaderBoard } from "./utils";
 
 import ReactAudioPlayer from "react-audio-player";
 
@@ -18,7 +19,7 @@ import "../styles/App.css";
 
 function App() {
   const { level, setLevel } = useContext(UserContext);
-
+  const { leaderboard, setLeaderboard } = useContext(UserContext);
   const { setNewBoard } = useContext(UserContext);
   const { score } = useContext(UserContext);
   const { makeBoard, setMakeBoard } = useContext(UserContext);
@@ -26,6 +27,7 @@ function App() {
   const { headerToggles, setHeaderToggles } = useContext(UserContext);
   const { music } = useContext(UserContext);
   const { initScreen } = useContext(UserContext);
+  const { setActionText } = useContext(UserContext);
 
   const subRef = useRef(1);
   subRef.current = level;
@@ -92,6 +94,32 @@ function App() {
     }
   };
 
+  const fetchLeaderboard = () => {
+    const results = async () => await getLeaderBoard();
+
+    if (leaderboard === "") {
+      results()
+        .then((result) => {
+          console.log("test");
+          setLeaderboard(result.data);
+          !initScreen && toggleLeaderboard();
+
+          setHeaderToggles({
+            info: false,
+            leaderboard: true,
+            settings: false,
+            heros: false,
+          });
+        })
+        .catch((e) => {
+          console.log("error");
+        });
+    }
+
+    if (leaderboard) {
+      !initScreen && toggleLeaderboard();
+    }
+  };
   return (
     <div>
       {music ? (
@@ -100,7 +128,7 @@ function App() {
 
       <button
         className="  text-gray-700"
-        Alt="Secret Button to skip level (in the top left)"
+        alt="Secret Button to skip level (in the top left)"
         onClick={() => {
           subRef.current++;
           setLevel(subRef.current);
@@ -122,20 +150,24 @@ function App() {
         <div className="flex flex-col w-72 border-4 border-black">
           <div className="relative ">
             <img
+              alt="title"
               src="/images/title2.png"
               className="  w-full border-b-2 border-black"
             />
 
             <img
+              alt="trophy"
               onClick={() => {
-                !initScreen && toggleLeaderboard();
+                fetchLeaderboard();
               }}
               src="/images/trophy.svg"
               className=" cursor-pointer absolute opacity-80  bottom-1 right-2 h-5  "
             />
 
             <img
+              alt="info"
               onClick={() => {
+                setActionText("Take your game to the next level!");
                 !initScreen && toggleInfo();
               }}
               src="/images/info.svg"
@@ -143,6 +175,7 @@ function App() {
             />
 
             <img
+              alt="settings"
               onClick={() => {
                 !initScreen && toggleSettings();
               }}

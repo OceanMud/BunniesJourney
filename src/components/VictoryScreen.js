@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
+import { submitLeaderboard } from "./utils";
 
 const VictoryScreen = () => {
   const { setActionText } = useContext(UserContext);
@@ -8,6 +9,7 @@ const VictoryScreen = () => {
 
   const { hero } = useContext(UserContext);
   const { player, setPlayer } = useContext(UserContext);
+  const { setLeaderboard } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
@@ -52,10 +54,15 @@ const VictoryScreen = () => {
     }, 3000);
 
     const localScore = JSON.parse(localStorage.getItem("score"));
-
-    if (mode === "Story") {
+    if (mode === "Story" && player.hp > 0) {
       setActionText(
         "You Smash the Amulet and lift the curse of The Bunny Kingdom!"
+      );
+    }
+
+    if (mode === "Story" && player.hp <= 0) {
+      setActionText(
+        "The Bunny Kingdom has been lost! Is there any adventurer that can save us? "
       );
     }
 
@@ -85,7 +92,7 @@ const VictoryScreen = () => {
 
     if (hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 8,
+        hp: 6,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -94,15 +101,45 @@ const VictoryScreen = () => {
 
     if (hero === "images/icons/main/3.png") {
       setPlayer({
-        hp: 6,
+        hp: 4,
         poisoned: false,
         protected: true,
         color: "text-yellow-200",
       });
     }
-
     return () => {};
   }, []);
+
+  const fetchLeaderboard = () => {
+    let heroName = "";
+    if (hero === "images/icons/main/1.png") {
+      heroName = "Max";
+    } else if (hero === "images/icons/main/2.png") {
+      heroName = "Bowser";
+    } else if (hero === "images/icons/main/3.png") {
+      heroName = "Petey";
+    }
+
+    if (name === "") {
+      setName("Anonymous");
+    }
+
+    const results = async () => await submitLeaderboard(name, score, heroName);
+
+    results()
+      .then((result) => {
+        setLeaderboard(result.data);
+        setHeaderToggles({
+          info: false,
+          leaderboard: true,
+          settings: false,
+          heros: false,
+        });
+      })
+      .catch((e) => {
+        console.log("error");
+      });
+  };
 
   return (
     <div className="relative ">
@@ -136,13 +173,7 @@ const VictoryScreen = () => {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    setHeaderToggles({
-                      info: false,
-                      leaderboard: true,
-                      settings: false,
-                      heros: false,
-                      credits: false,
-                    });
+                    fetchLeaderboard();
                   }}
                 >
                   <input
@@ -152,7 +183,7 @@ const VictoryScreen = () => {
                     maxlength="18"
                     className="pl-2 h-10 font-bold focus:outline-none w-full mt-5 -ml-1 border-gray-300 border border-b-2"
                     onChange={(e) => {
-                      setName(e.value);
+                      setName(e.target.value);
                     }}
                   />
                   <button
@@ -170,6 +201,7 @@ const VictoryScreen = () => {
                     class="focus:outline-none opacity-90 shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10 border border-b-2 border-green-700 rounded -ml-1 mt-4"
                   >
                     <img
+                      alt="checkmark"
                       className=" opacity-80 ml-8 h-10 "
                       src="images/check.svg"
                     />
@@ -204,7 +236,11 @@ const VictoryScreen = () => {
                 disableHs && "ml-11"
               }  opacity-95   bg-blue-500 hover:bg-blue-700 font-bold py-4 px-5 border-2 border-blue-700 rounded`}
             >
-              <img className=" opacity-70 h-10 " src="images/replay.svg" />
+              <img
+                alt="replay"
+                className=" opacity-70 h-10 "
+                src="images/replay.svg"
+              />
             </button>
             {!disableHs && (
               <button
@@ -222,7 +258,11 @@ const VictoryScreen = () => {
                 }}
                 className="mt-2  bg-yellow-300 hover:bg-yellow-500 font-bold py-4 px-5 border-2 border-yellow-400 rounded"
               >
-                <img className=" opacity-70 h-10 " src="images/trophy.svg" />
+                <img
+                  alt="trophy"
+                  className=" opacity-70 h-10 "
+                  src="images/trophy.svg"
+                />
               </button>
             )}
             <button
@@ -245,7 +285,11 @@ const VictoryScreen = () => {
               }}
               className="  mt-2  opacity-95  bg-blue-500 hover:bg-blue-700 font-bold py-4 px-5 border-2 border-blue-700 rounded"
             >
-              <img className=" opacity-70 h-10 " src="images/home.svg" />
+              <img
+                alt="home"
+                className=" opacity-70 h-10 "
+                src="images/home.svg"
+              />
             </button>
           </div>
         ) : undefined}

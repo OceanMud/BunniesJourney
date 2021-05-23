@@ -91,7 +91,11 @@ const SettingsScreen = () => {
           }}
           className="   bg-blue-500 hover:bg-blue-700 font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
         >
-          <img className=" opacity-70 h-10 " src="images/settingsplay.svg" />
+          <img
+            alt="continue"
+            className=" opacity-70 h-10 "
+            src="images/settingsplay.svg"
+          />
         </button>
 
         {level === 0 && (
@@ -114,7 +118,11 @@ const SettingsScreen = () => {
               }}
               className="   bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
             >
-              <img className=" opacity-70 h-10 " src="./images/heros.svg" />
+              <img
+                alt="heros"
+                className=" opacity-70 h-10 "
+                src="./images/heros.svg"
+              />
             </button>
             <button
               onClick={() => {
@@ -137,7 +145,11 @@ const SettingsScreen = () => {
               }}
               className=" mt-2  bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
             >
-              <img className=" opacity-70 h-10 " src="./images/credits.svg" />
+              <img
+                alt="credits"
+                className=" opacity-70 h-10 "
+                src="./images/credits.svg"
+              />
             </button>
           </div>
         )}
@@ -171,7 +183,11 @@ const SettingsScreen = () => {
                 }
               }}
             >
-              <img className=" opacity-70 h-10 " src="images/replay.svg" />
+              <img
+                alt="replay"
+                className=" opacity-70 h-10 "
+                src="images/replay.svg"
+              />
             </button>
             <button
               className=" bg-blue-500  hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
@@ -195,7 +211,11 @@ const SettingsScreen = () => {
                 }
               }}
             >
-              <img className=" opacity-70 h-10 " src="images/home.svg" />
+              <img
+                alt="home"
+                className=" opacity-70 h-10 "
+                src="images/home.svg"
+              />
             </button>
           </>
         )}

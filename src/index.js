@@ -26,12 +26,13 @@ const Context = () => {
   const [makeBoard, setMakeBoard] = useState(0);
   const [disableHs, setDisableHs] = useState(false);
   const [initScreen, setInitScreen] = useState(true);
-  const [sound, setSound] = useState(false);
+  const [sound, setSound] = useState(true);
   const [music, setMusic] = useState(false);
   const [actionText, setActionText] = useState("Welcome to Bunnies Journey!");
   const [hero, setHero] = useState("images/icons/main/1.png");
   const [difficulty, setDifficulty] = useState("Easy");
   const [score, setScore] = useState(0);
+  const [leaderboard, setLeaderboard] = useState("");
   const [mode, setMode] = useState("Story");
   const [headerToggles, setHeaderToggles] = useState({
     info: false,
@@ -50,6 +51,8 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          leaderboard,
+          setLeaderboard,
           disableHs,
           setDisableHs,
           highScoreCount,

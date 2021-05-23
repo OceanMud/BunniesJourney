@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getLeaderBoard = () => {
   return axios
-    .get("http://localhost:3001/highscore", {})
+    .get("https://merchandise-database.herokuapp.com/highscore", {})
     .then(function (response) {
       if (response.status === 200) {
         return response;
@@ -17,7 +17,7 @@ export const getLeaderBoard = () => {
 
 export const submitLeaderboard = (owner, score, hero) => {
   return axios
-    .post("http://localhost:3001/highscore", {
+    .post("https://merchandise-database.herokuapp.com/highscore", {
       owner,
       score,
       hero,

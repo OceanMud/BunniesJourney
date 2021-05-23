@@ -180,7 +180,7 @@ const VictoryScreen = () => {
                     type="text"
                     value={name}
                     placeholder="Enter Name"
-                    maxlength="18"
+                    maxlength="10"
                     className="pl-2 h-10 font-bold focus:outline-none w-full mt-5 -ml-1 border-gray-300 border border-b-2"
                     onChange={(e) => {
                       setName(e.target.value);

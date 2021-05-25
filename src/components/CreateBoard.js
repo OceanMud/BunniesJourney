@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useRef } from "react";
 import UserContext from "./UserContext";
 import { monsterShuffle } from "./monsters";
+import { monsterShuffle1 } from "./endlessMonsters";
 import { packetLogic } from "./packetSelection";
 import { determineBackground } from "./determineBackground";
 
@@ -45,11 +46,10 @@ const CreateBoard = () => {
   }
 
   useEffect(() => {
-    monsterShuffle();
-
     let shuffledTemplate = "";
 
     if (mode === "Story") {
+      monsterShuffle();
       shuffledTemplate = [
         "Monster",
         "Monster",
@@ -62,6 +62,7 @@ const CreateBoard = () => {
     }
 
     if (mode === "Endless") {
+      monsterShuffle1();
       const newLevel = packetLogic(level, difficulty);
       shuffledTemplate = newLevel;
     }

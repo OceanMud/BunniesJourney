@@ -162,7 +162,7 @@ const VictoryScreen = () => {
                 ) : undefined}
 
                 {finalScore ? (
-                  <p className="mt-3  pb-2 align-top border-b-4 bg-opacity-70 border-opacity-70 border-yellow-300 h-full bg-yellow-300 pt-2 text-center -ml-1  ">
+                  <p className="mt-3  pb-1 align-top border-b-4 bg-opacity-70 border-opacity-70 border-yellow-300 h-full bg-yellow-300 pt-2 text-center -ml-1  ">
                     Final Score: {subRef.current}
                   </p>
                 ) : undefined}

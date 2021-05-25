@@ -334,7 +334,7 @@ export let endlessMonstersTundra = [
   },
 ];
 
-export const monsterShuffle = () => {
+export const monsterShuffle1 = () => {
   let monsterShuffle = endlessMonstersField
     .map((a) => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)

@@ -57,7 +57,7 @@ const HerosScreen = () => {
           {newHero === 1 ? (
             <p>HP: 10</p>
           ) : newHero === 2 ? (
-            <p>HP: 6</p>
+            <p>HP: 7</p>
           ) : (
             <p>HP: 4</p>
           )}

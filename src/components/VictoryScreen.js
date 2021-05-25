@@ -92,7 +92,7 @@ const VictoryScreen = () => {
 
     if (hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 6,
+        hp: 7,
         poisoned: false,
         protected: false,
         color: "text-black",

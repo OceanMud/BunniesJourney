@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
+import { getLeaderBoard } from "./utils";
 
 const InitScreen = () => {
   const { setInitScreen } = useContext(UserContext);
@@ -19,6 +20,7 @@ const InitScreen = () => {
   });
 
   useEffect(() => {
+    getLeaderBoard();
     setActionText("Welcome to Bunnies Journey!");
 
     return () => {};

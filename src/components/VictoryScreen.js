@@ -129,7 +129,7 @@ const VictoryScreen = () => {
     } else if (hero === "images/icons/main/3.png") {
       heroName = "Petey";
     } else if (hero === "images/icons/main/4.png") {
-      heroName = "Farmer Andy";
+      heroName = "Andy";
     }
 
     if (name === "") {

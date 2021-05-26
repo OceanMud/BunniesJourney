@@ -150,8 +150,10 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
     updatePlayer = [player.hp, false, player.protected, checkProtected];
 
     if (hero === "images/icons/main/4.png") {
-      text = "You feel good as new!";
-      updatePlayer = [10, false, player.protected, checkProtected];
+      if (player.poisoned) {
+        text = text + ". You feel protected. You are fully healed.";
+        updatePlayer = [10, false, true, "text-yellow-200"];
+      }
     }
 
     document.getElementById(index).style.visibility = "hidden";

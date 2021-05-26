@@ -86,7 +86,10 @@ const HerosScreen = () => {
             </p>
           ) : (
             <p>
-              <span className="text-pink-600">Antidotes also fully heal</span>
+              <span className="text-pink-600">
+                <span className="text-green-600">If Poisoned:</span> Antidote
+                Fully Heals + Shield
+              </span>
             </p>
           )}
           <p></p>

@@ -146,7 +146,7 @@ function App() {
       >
         Skip Level
       </button>
-      <div className=" mt-24 flex justify-center  text-xl font-bold ">
+      <div className="  flex justify-center  text-xl font-bold ">
         <div className="flex flex-col w-72 border-4 border-black">
           <div className="relative ">
             <img

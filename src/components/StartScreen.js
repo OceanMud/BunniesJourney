@@ -27,7 +27,7 @@ const StartScreen = () => {
       "The Bunny Kingdom is cursed! You must find and destroy the Amulet of Gondor!"
     );
     setPlayer({
-      hp: 10,
+      hp: 12,
       poisoned: false,
       protected: false,
       color: "text-black",
@@ -53,7 +53,7 @@ const StartScreen = () => {
 
     if (hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 7,
+        hp: 8,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -61,6 +61,14 @@ const StartScreen = () => {
     }
 
     if (hero === "images/icons/main/1.png") {
+      setPlayer({
+        hp: 12,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+    if (hero === "images/icons/main/4.png") {
       setPlayer({
         hp: 10,
         poisoned: false,

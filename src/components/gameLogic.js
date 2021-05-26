@@ -106,20 +106,26 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
 
     if (player.poisoned) {
       if (hero === "images/icons/main/1.png") {
-        updatePlayer = [9, player.poisoned, player.protected, player.color];
+        updatePlayer = [11, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/3.png") {
         updatePlayer = [3, player.poisoned, player.protected, player.color];
       }
+      if (hero === "images/icons/main/4.png") {
+        updatePlayer = [9, player.poisoned, player.protected, player.color];
+      }
     } else {
       if (hero === "images/icons/main/1.png") {
-        updatePlayer = [10, player.poisoned, player.protected, player.color];
+        updatePlayer = [12, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/2.png") {
-        updatePlayer = [7, player.poisoned, player.protected, player.color];
+        updatePlayer = [8, player.poisoned, player.protected, player.color];
       }
       if (hero === "images/icons/main/3.png") {
         updatePlayer = [4, player.poisoned, player.protected, player.color];
+      }
+      if (hero === "images/icons/main/4.png") {
+        updatePlayer = [10, player.poisoned, player.protected, player.color];
       }
     }
 
@@ -142,6 +148,11 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
     }
 
     updatePlayer = [player.hp, false, player.protected, checkProtected];
+
+    if (hero === "images/icons/main/4.png") {
+      text = "You feel good as new!";
+      updatePlayer = [10, false, player.protected, checkProtected];
+    }
 
     document.getElementById(index).style.visibility = "hidden";
   }

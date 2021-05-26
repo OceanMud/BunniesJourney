@@ -83,7 +83,7 @@ const VictoryScreen = () => {
 
     if (hero === "images/icons/main/1.png") {
       setPlayer({
-        hp: 10,
+        hp: 12,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -92,7 +92,7 @@ const VictoryScreen = () => {
 
     if (hero === "images/icons/main/2.png") {
       setPlayer({
-        hp: 7,
+        hp: 8,
         poisoned: false,
         protected: false,
         color: "text-black",
@@ -107,6 +107,16 @@ const VictoryScreen = () => {
         color: "text-yellow-200",
       });
     }
+
+    if (hero === "images/icons/main/4.png") {
+      setPlayer({
+        hp: 10,
+        poisoned: false,
+        protected: false,
+        color: "text-black",
+      });
+    }
+
     return () => {};
   }, []);
 
@@ -118,6 +128,8 @@ const VictoryScreen = () => {
       heroName = "Bowser";
     } else if (hero === "images/icons/main/3.png") {
       heroName = "Petey";
+    } else if (hero === "images/icons/main/4.png") {
+      heroName = "Farmer Andy";
     }
 
     if (name === "") {

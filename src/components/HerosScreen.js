@@ -26,8 +26,8 @@ const HerosScreen = () => {
       setActionText("Bowser pushes past any obstacle!");
       setNewHero(2);
     } else if (newHero === 1 && direction === "Backward") {
-      setActionText("Petey is all about safety !");
-      setNewHero(3);
+      setActionText("Andy loves a nice cocktail!");
+      setNewHero(4);
     } else if (newHero === 2 && direction === "Forward") {
       setActionText("Petey is all about safety!");
       setNewHero(3);
@@ -35,11 +35,17 @@ const HerosScreen = () => {
       setActionText("Max is the worlds bravest bunny!");
       setNewHero(1);
     } else if (newHero === 3 && direction === "Forward") {
-      setActionText("Max is the worlds bravest bunny!");
-      setNewHero(1);
+      setActionText("Andy loves a nice cocktail!");
+      setNewHero(4);
     } else if (newHero === 3 && direction === "Backward") {
       setActionText("Bowser pushes past any obstacle!");
       setNewHero(2);
+    } else if (newHero === 4 && direction === "Backward") {
+      setActionText("Petey is all about safety!");
+      setNewHero(3);
+    } else if (newHero === 4 && direction === "Forward") {
+      setActionText("Max is the worlds bravest bunny!");
+      setNewHero(1);
     }
   };
   return (
@@ -51,15 +57,19 @@ const HerosScreen = () => {
             <p>Max </p>
           ) : newHero === 2 ? (
             <p>Bowser</p>
-          ) : (
+          ) : newHero === 3 ? (
             <p>Petey</p>
+          ) : (
+            <p>Farmer Andy</p>
           )}
           {newHero === 1 ? (
-            <p>HP: 10</p>
+            <p>HP: 12</p>
           ) : newHero === 2 ? (
-            <p>HP: 7</p>
-          ) : (
+            <p>HP: 8</p>
+          ) : newHero === 3 ? (
             <p>HP: 4</p>
+          ) : (
+            <p>HP: 10</p>
           )}
 
           {newHero === 1 ? (
@@ -68,11 +78,15 @@ const HerosScreen = () => {
             <p>
               <span className="text-green-700">Poison Immunity</span>
             </p>
-          ) : (
+          ) : newHero === 3 ? (
             <p>
               <span className="text-yellow-600">
                 Refreshes With Shield Every Level
               </span>
+            </p>
+          ) : (
+            <p>
+              <span className="text-pink-600">Antidotes also fully heal</span>
             </p>
           )}
           <p></p>
@@ -134,7 +148,9 @@ const HerosScreen = () => {
             ? "images/icons/main/1.png"
             : newHero === 2
             ? "images/icons/main/2.png"
-            : "images/icons/main/3.png"
+            : newHero === 3
+            ? "images/icons/main/3.png"
+            : "images/icons/main/4.png"
         }
         className="absolute top-32 right-28 h-16"
       />

@@ -31,7 +31,7 @@ const LeaderboardScreen = () => {
       />
 
       <div className="absolute top-0">
-        <div className=" text-sm h-72   w-72 ">
+        <div className=" text-sm h-72   w-80 ">
           <div className=" h-60 w-64   border-gray-800 bg-gray-200 bg-opacity-60 ml-3 text-gray-900 border-double shadow-2xl  border-8 ">
             <div className="grid grid-cols-3 text-lg -mt-2 ">
               <h3 className="ml-2">Name</h3>
@@ -41,7 +41,7 @@ const LeaderboardScreen = () => {
             <div className="ml-2 text-gray-900   ">
               {leaderboard.map((item, index) => (
                 <div key={index} className="grid grid-cols-3  ">
-                  <p className="">
+                  <p className=" whitespace-nowrap">
                     {index + 1}.{item.owner}
                   </p>
                   <p className="justify-self-center">{item.score}</p>

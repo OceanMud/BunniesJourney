@@ -9,7 +9,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: { borderWidth: ["hover"], opacity: ["disabled"] },
+    extend: {
+      borderWidth: ["hover"],
+      opacity: ["disabled"],
+    },
   },
   plugins: [],
 };

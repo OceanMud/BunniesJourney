@@ -22,6 +22,7 @@ const VictoryScreen = () => {
   const [finalScore, setFinalScore] = useState(false);
   const [buttonScore, setButtonScore] = useState(false);
   const [submitScore, setSubmitScore] = useState(false);
+  const [submitCooldown, setSubmitCooldown] = useState(false);
   const { disableHs, setDisableHs } = useContext(UserContext);
   const [name, setName] = useState("");
 
@@ -149,7 +150,7 @@ const VictoryScreen = () => {
         });
       })
       .catch((e) => {
-        console.log("error");
+        fetchLeaderboard();
       });
   };
 
@@ -185,14 +186,17 @@ const VictoryScreen = () => {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    fetchLeaderboard();
+                    if (submitCooldown === false) {
+                      fetchLeaderboard();
+                      setSubmitCooldown(true);
+                    }
                   }}
                 >
                   <input
                     type="text"
                     value={name}
                     placeholder="Enter Name"
-                    maxlength="10"
+                    maxLength="10"
                     className="pl-2 h-10 font-bold focus:outline-none w-full mt-5 -ml-1 border-gray-300 border border-b-2"
                     onChange={(e) => {
                       setName(e.target.value);
@@ -210,12 +214,16 @@ const VictoryScreen = () => {
                     onClick={() => {
                       setDisableHs(true);
                     }}
-                    class="focus:outline-none opacity-90 shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10 border border-b-2 border-green-700 rounded -ml-1 mt-4"
+                    className=" focus:outline-none opacity-90 shadow-2xl w-full bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-10 border border-b-2 border-green-700 rounded -ml-1 mt-4"
                   >
                     <img
                       alt="checkmark"
                       className=" opacity-80 ml-8 h-10 "
-                      src="images/check.svg"
+                      src={
+                        submitCooldown
+                          ? "images/loading.gif"
+                          : "images/check.svg"
+                      }
                     />
                   </button>
                 </form>

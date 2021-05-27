@@ -150,7 +150,8 @@ const VictoryScreen = () => {
         });
       })
       .catch((e) => {
-        fetchLeaderboard();
+        setSubmitCooldown(false);
+        console.log(e);
       });
   };
 

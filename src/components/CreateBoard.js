@@ -16,6 +16,7 @@ const CreateBoard = () => {
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { difficulty } = useContext(UserContext);
+  const { setPotionStorage } = useContext(UserContext);
   const subRef = useRef([
     "Monster",
     "Monster",
@@ -89,6 +90,10 @@ const CreateBoard = () => {
 
     subRef.current = shuffled;
     setNewBoard(subRef.current);
+
+    if (level === 1) {
+      setPotionStorage(false);
+    }
 
     if (level === 1 && hero === "images/icons/main/1.png") {
       setPlayer({

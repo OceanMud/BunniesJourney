@@ -19,6 +19,10 @@ const HerosScreen = () => {
     if (hero === "images/icons/main/3.png") {
       setNewHero(3);
     }
+
+    if (hero === "images/icons/main/4.png") {
+      setNewHero(4);
+    }
   }, []);
 
   const heroLogic = (direction) => {
@@ -87,8 +91,7 @@ const HerosScreen = () => {
           ) : (
             <p>
               <span className="text-pink-600">
-                <span className="text-green-600">If Poisoned:</span> Antidote
-                Fully Heals + Shield
+                Keep Antidote When Not Poisoned
               </span>
             </p>
           )}

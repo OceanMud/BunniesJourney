@@ -24,6 +24,7 @@ const Context = () => {
     level: 0,
   });
   const [makeBoard, setMakeBoard] = useState(0);
+  const [potionStorage, setPotionStorage] = useState(false);
   const [disableHs, setDisableHs] = useState(false);
   const [initScreen, setInitScreen] = useState(true);
   const [sound, setSound] = useState(true);
@@ -51,6 +52,8 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          potionStorage,
+          setPotionStorage,
           leaderboard,
           setLeaderboard,
           disableHs,

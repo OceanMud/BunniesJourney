@@ -10,11 +10,22 @@ import {
   endlessMonstersTundra,
 } from "./endlessMonsters";
 
-const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
+const checkStatus = (
+  tile,
+  player,
+  index,
+  level,
+  score,
+  mode,
+  enemy,
+  hero,
+  potionStorage
+) => {
   let monsterImg = "";
   let updatePlayer = player;
   let text = "";
   let newScore = score;
+  let antidoteStorage = potionStorage;
 
   if (mode === "Story") {
     if (level >= 1 && level < 3) {
@@ -149,10 +160,22 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
 
     updatePlayer = [player.hp, false, player.protected, checkProtected];
 
+    // if (hero === "images/icons/main/4.png") {
+    //   if (player.poisoned) {
+    //     text = text + ". You feel protected. You are fully healed";
+    //     updatePlayer = [10, false, true, "text-yellow-200"];
+    //   }
+    // }
+
     if (hero === "images/icons/main/4.png") {
-      if (player.poisoned) {
-        text = text + ". You feel protected. You are fully healed.";
-        updatePlayer = [10, false, true, "text-yellow-200"];
+      if (!potionStorage) {
+        if (!player.poisoned) {
+          text = "You decide to save the Antidote for later";
+          updatePlayer = [player.hp, false, player.protected, player.color];
+          antidoteStorage = true;
+        }
+      } else {
+        text = "You already have Antidote stored";
       }
     }
 
@@ -160,18 +183,37 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
   }
 
   if (tile === "Poison") {
-    text = "This Poison tastes pretty good!";
-    updatePlayer = [player.hp, false, player.protected, player.color];
-    if (hero !== "images/icons/main/2.png") {
-      text = "You feel sick";
+    if (hero !== "images/icons/main/4.png") {
+      text = "This Poison tastes pretty good!";
+      updatePlayer = [player.hp, false, player.protected, player.color];
+      if (hero !== "images/icons/main/2.png") {
+        text = "You feel sick";
 
-      if (player.protected) {
-        updatePlayer = [player.hp, true, false, "text-green-700"];
-        text = "You feel sick. You feel less protected";
-      } else {
-        updatePlayer = [player.hp - 1, true, false, "text-green-700"];
+        if (player.protected) {
+          updatePlayer = [player.hp, true, false, "text-green-700"];
+          text = "You feel sick. You feel less protected";
+        } else {
+          updatePlayer = [player.hp - 1, true, false, "text-green-700"];
+        }
       }
     }
+
+    if (hero === "images/icons/main/4.png") {
+      if (!antidoteStorage) {
+        text = "You feel sick";
+        if (player.protected) {
+          updatePlayer = [player.hp, true, false, "text-green-700"];
+          text = text + ". You feel less protected";
+        } else {
+          updatePlayer = [player.hp - 1, true, false, "text-green-700"];
+        }
+      } else {
+        text = "You use your saved Antidote.";
+        antidoteStorage = false;
+        updatePlayer = [player.hp, false, player.protected, player.color];
+      }
+    }
+
     document.getElementById(index).style.visibility = "hidden";
   }
 
@@ -192,7 +234,7 @@ const checkStatus = (tile, player, index, level, score, mode, enemy, hero) => {
     document.getElementById(index).style.visibility = "hidden";
   }
 
-  return [updatePlayer, text, newScore];
+  return [updatePlayer, text, newScore, antidoteStorage];
 };
 
 const gameLogic = (
@@ -204,7 +246,8 @@ const gameLogic = (
   score,
   mode,
   enemy,
-  hero
+  hero,
+  potionStorage
 ) => {
   const newMove = boardRef.findIndex((item) => item === "Hero");
   const validMove = determineMove(newMove, index);
@@ -222,7 +265,8 @@ const gameLogic = (
       score,
       mode,
       enemy,
-      hero
+      hero,
+      potionStorage
     );
 
     let move = boardRef;

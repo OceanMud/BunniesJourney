@@ -22,6 +22,7 @@ const CurrentBoardDrawn = ({ tile, index }) => {
   const { mode } = useContext(UserContext);
   const { level } = useContext(UserContext);
   const { setActionText } = useContext(UserContext);
+  const { potionStorage } = useContext(UserContext);
 
   let drawEnemy = monstersField;
 
@@ -110,6 +111,13 @@ const CurrentBoardDrawn = ({ tile, index }) => {
             src={eval(currentBoardDrawnImages[0].src)}
             className=" w-14 absolute z-30 shadow-2xl left-6 top-6"
           />
+          {potionStorage && hero === "images/icons/main/4.png" && (
+            <img
+              alt="potion"
+              src="/images/icons/potions/Transperent/AntidotePotion.png"
+              className=" w-6 absolute z-30 shadow-2xl left-2 top-2"
+            />
+          )}
           <p
             className={`w-14 absolute z-30 ${
               hero === "images/icons/main/2.png" ||

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 
@@ -16,6 +16,7 @@ const CurrentBoard = () => {
   const { setMakeBoard } = useContext(UserContext);
   const { mode } = useContext(UserContext);
   const { enemy } = useContext(UserContext);
+  const { potionStorage, setPotionStorage } = useContext(UserContext);
   const { difficulty, setDifficulty } = useContext(UserContext);
   const { highScoreCount, setHighScoreCount } = useContext(UserContext);
 
@@ -110,12 +111,16 @@ const CurrentBoard = () => {
       score,
       mode,
       enemy,
-      hero
+      hero,
+      potionStorage
     );
 
     if (!update) {
       return;
     }
+
+    setPotionStorage(update[3]);
+    console.log(potionStorage);
 
     let newHighScoreCount = highScoreCount;
 
@@ -234,7 +239,7 @@ const CurrentBoard = () => {
     }
 
     subRef.current = update[0];
-    boardRef.current = update[3];
+    boardRef.current = update[4];
 
     setPlayer({
       hp: subRef.current[0],

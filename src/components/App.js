@@ -127,9 +127,9 @@ function App() {
         <ReactAudioPlayer src="./sounds/Field_loop2.mp3" autoPlay loop />
       ) : undefined}
 
-      <button
+      {/* <button
         className="  text-gray-700"
-        alt="Secret Button to skip level (in the top left)"
+        alt=""
         onClick={() => {
           subRef.current++;
           setLevel(subRef.current);
@@ -146,7 +146,7 @@ function App() {
         }}
       >
         Skip Level
-      </button>
+      </button> */}
       <div className="  flex justify-center  text-xl font-bold ">
         <div className="flex flex-col w-72 border-4 border-black">
           <div className="relative ">

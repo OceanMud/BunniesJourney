@@ -6,7 +6,7 @@ import { submitLeaderboard } from "./utils";
 const VictoryScreen = () => {
   const { setActionText } = useContext(UserContext);
   const { mode } = useContext(UserContext);
-
+  const { token, setToken } = useContext(UserContext);
   const { hero } = useContext(UserContext);
   const { player, setPlayer } = useContext(UserContext);
   const { setLeaderboard } = useContext(UserContext);
@@ -137,10 +137,12 @@ const VictoryScreen = () => {
       setName("Anonymous");
     }
 
-    const results = async () => await submitLeaderboard(name, score, heroName);
+    const results = async () =>
+      await submitLeaderboard(name, score, heroName, token.currentToken);
 
     results()
       .then((result) => {
+        setToken({ getToken: false, currentToken: "" });
         setLeaderboard(result.data);
         setHeaderToggles({
           info: false,
@@ -150,6 +152,7 @@ const VictoryScreen = () => {
         });
       })
       .catch((e) => {
+        setActionText("Error Please Try Again Later");
         setSubmitCooldown(false);
         console.log(e);
       });
@@ -243,6 +246,7 @@ const VictoryScreen = () => {
                 }
               }}
               onClick={() => {
+                setToken({ getToken: false, currentToken: "" });
                 setHighScoreCount({
                   enemy: 0,
                   potion: 0,

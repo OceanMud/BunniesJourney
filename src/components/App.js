@@ -96,7 +96,7 @@ function App() {
 
   const fetchLeaderboard = () => {
     const results = async () => await getLeaderBoard();
-
+    setActionText("Fetching LeaderBoard...");
     if (leaderboard === "") {
       results()
         .then((result) => {
@@ -112,6 +112,7 @@ function App() {
           });
         })
         .catch((e) => {
+          setActionText("Error Please Try Again Later");
           console.log("error");
         });
     }

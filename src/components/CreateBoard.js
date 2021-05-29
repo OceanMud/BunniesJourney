@@ -4,6 +4,7 @@ import { monsterShuffle } from "./monsters";
 import { monsterShuffle1 } from "./endlessMonsters";
 import { packetLogic } from "./packetSelection";
 import { determineBackground } from "./determineBackground";
+import { getToken } from "./utils";
 
 const CreateBoard = () => {
   const { level } = useContext(UserContext);
@@ -13,6 +14,7 @@ const CreateBoard = () => {
   const { setEnemy } = useContext(UserContext);
   const { player, setPlayer } = useContext(UserContext);
   const { mode } = useContext(UserContext);
+  const { token, setToken } = useContext(UserContext);
   const { newBoard, setNewBoard } = useContext(UserContext);
   const { setMakeBoard } = useContext(UserContext);
   const { difficulty } = useContext(UserContext);
@@ -47,6 +49,19 @@ const CreateBoard = () => {
   }
 
   useEffect(() => {
+    if (!token.getToken) {
+      const newToken = async () => await getToken();
+
+      newToken()
+        .then((result) => {
+          console.log(result.levelCode);
+          setToken({ getToken: true, currentToken: result.levelCode });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+
     let shuffledTemplate = "";
 
     if (mode === "Story") {

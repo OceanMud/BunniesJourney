@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import UserContext from "./UserContext";
 import useSound from "use-sound";
 import { getLeaderBoard } from "./utils";
 
 const StartScreen = () => {
   const { setActionText } = useContext(UserContext);
+  const { setToken } = useContext(UserContext);
   const { hero } = useContext(UserContext);
   const { setLevel } = useContext(UserContext);
   const { setPlayer } = useContext(UserContext);
@@ -16,6 +17,7 @@ const StartScreen = () => {
   const { setLeaderboard } = useContext(UserContext);
   const { setHeaderToggles } = useContext(UserContext);
   const { sound } = useContext(UserContext);
+  const [submitCooldown, setSubmitCooldown] = useState(false);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
     volume: 0.3,
   });
@@ -79,6 +81,7 @@ const StartScreen = () => {
   };
 
   const fetchLeaderboard = () => {
+    setActionText("Fetching Leaderboard...");
     const results = async () => await getLeaderBoard();
 
     results()
@@ -92,6 +95,7 @@ const StartScreen = () => {
         });
       })
       .catch((e) => {
+        setActionText("Error Please Try Again Later");
         console.log("error");
       });
   };
@@ -111,6 +115,7 @@ const StartScreen = () => {
             }
           }}
           onClick={() => {
+            setToken({ getToken: false, currentToken: "" });
             resetCharacter();
             setLevel(1);
             setMode("Story");
@@ -133,6 +138,7 @@ const StartScreen = () => {
             }
           }}
           onClick={() => {
+            setToken({ getToken: false, currentToken: "" });
             resetCharacter();
             setLevel(1);
             setMode("Endless");

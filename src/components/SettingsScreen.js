@@ -11,7 +11,7 @@ const SettingsScreen = () => {
   const { setDisableHs } = useContext(UserContext);
   const { music, setMusic } = useContext(UserContext);
   const { setHighScoreCount } = useContext(UserContext);
-
+  const { token, setToken } = useContext(UserContext);
   const { sound, setSound } = useContext(UserContext);
   const [playbuttonHover] = useSound("./sounds/buttonhover.mp3", {
     volume: 0.3,
@@ -159,6 +159,7 @@ const SettingsScreen = () => {
             <button
               className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-10 border border-b-2 border-blue-700 rounded"
               onClick={() => {
+                setToken({ getToken: false, currentToken: "" });
                 setDisableHs(false);
                 setHighScoreCount({
                   enemy: 0,

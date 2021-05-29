@@ -120,7 +120,6 @@ const CurrentBoard = () => {
     }
 
     setPotionStorage(update[3]);
-    console.log(potionStorage);
 
     let newHighScoreCount = highScoreCount;
 

@@ -34,6 +34,7 @@ const Context = () => {
   const [difficulty, setDifficulty] = useState("Easy");
   const [score, setScore] = useState(0);
   const [leaderboard, setLeaderboard] = useState("");
+  const [token, setToken] = useState({ getToken: false, currentToken: "" });
   const [mode, setMode] = useState("Story");
   const [headerToggles, setHeaderToggles] = useState({
     info: false,
@@ -52,6 +53,8 @@ const Context = () => {
     <React.StrictMode>
       <UserContext.Provider
         value={{
+          token,
+          setToken,
           potionStorage,
           setPotionStorage,
           leaderboard,
